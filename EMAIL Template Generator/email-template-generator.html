@@ -1010,7 +1010,7 @@
             <input id="recipientEmail" name="recipientEmail" type="email" inputmode="email" autocomplete="email" placeholder="recipient@example.com" />
           </div>
           <button id="sendEmailBtn" class="button button-primary" type="button">Send Email</button>
-          <p class="send-note">Opens your default email app with the generated subject and plain-text version of this template. Copy the HTML separately if your email platform supports pasting HTML.</p>
+          <p class="send-note">Sends the reviewed HTML template to the n8n email webhook for controlled delivery. Keep outbound messaging under human approval.</p>
         </div>
         <div id="copyStatus" class="status-row" role="status" aria-live="polite"></div>
       </section>
@@ -1028,6 +1028,8 @@
   </main>
 
   <script>
+    const EMAIL_SEND_WEBHOOK_URL = "https://airtechmass.app.n8n.cloud/webhook-test/44b7e697-d4a7-4ae1-be1d-aba7dd93d244";
+
     const logoUrl = "https://assets.zyrosite.com/vdR28j7XgM9CU328/ats-color-logo-8-rToABcJJPZRnl9z1.png";
 
     const avatarProfiles = {
@@ -1238,6 +1240,11 @@
       sendEmailBtn.disabled = isLoading;
       generateBtn.classList.toggle("loading", isLoading);
       generateLabel.textContent = isLoading ? "Generating..." : "Generate Email Template";
+    }
+
+    function setSendLoading(isLoading) {
+      sendEmailBtn.disabled = isLoading;
+      sendEmailBtn.textContent = isLoading ? "Sending..." : "Send Email";
     }
 
     function getTrimmedValue(field) {
@@ -1607,7 +1614,7 @@
         .trim();
     }
 
-    function sendGeneratedEmail() {
+    async function sendGeneratedEmail() {
       const html = generatedEmail.value.trim();
       const recipient = recipientEmail.value.trim();
 
@@ -1630,13 +1637,47 @@
       }
 
       const data = buildEmailData();
-      const body = convertGeneratedHtmlToText(html) || buildEmailText(data);
-      const mailtoUrl = "mailto:" + encodeURIComponent(recipient) +
-        "?subject=" + encodeURIComponent(data.goal.subject) +
-        "&body=" + encodeURIComponent(body);
+      const plainText = convertGeneratedHtmlToText(html) || buildEmailText(data);
+      const payload = {
+        requestType: "send_email_template",
+        recipientEmail: recipient,
+        to: recipient,
+        subject: data.goal.subject,
+        preheader: data.goal.preheader,
+        html: html,
+        plainText: plainText,
+        text: plainText,
+        sender: data.signature,
+        audience: data.audience,
+        serviceFocus: data.serviceFocus,
+        tone: data.tone,
+        cta: data.cta,
+        headline: data.headline,
+        notes: data.notes
+      };
 
-      window.location.href = mailtoUrl;
-      setCopyStatus("Opening your email app with the generated template addressed to " + recipient + ".", "success");
+      setCopyStatus("Sending reviewed email template to n8n...", "");
+      setSendLoading(true);
+
+      try {
+        const response = await fetch(EMAIL_SEND_WEBHOOK_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          throw new Error("Webhook returned status " + response.status + ".");
+        }
+
+        setCopyStatus("Email template sent to the n8n webhook for " + recipient + ".", "success");
+      } catch (error) {
+        setCopyStatus("Send failed. Confirm the n8n test webhook is listening, then try again.", "error");
+      } finally {
+        setSendLoading(false);
+      }
     }
 
     function resetFormAndOutput() {
