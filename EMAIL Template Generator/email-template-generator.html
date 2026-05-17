@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Air Tech Solutions | Email Template Generator</title>
+  <style>
+    :root {
+      --ats-navy: #0a2f52;
+      --ats-blue: #1769aa;
+      --ats-blue-light: #e8f3fb;
+      --ats-sky: #3b9bd8;
+      --ats-green: #16a34a;
+      --ats-green-dark: #10843b;
+      --ats-white: #ffffff;
+      --ats-ink: #172033;
+      --ats-muted: #65758b;
+      --ats-line: #dbe7f1;
+      --ats-soft: #f4f8fb;
+      --ats-warning: #b42318;
+      --shadow-card: 0 22px 70px rgba(10, 47, 82, 0.14);
+      --shadow-soft: 0 12px 34px rgba(10, 47, 82, 0.09);
+      --radius-xl: 28px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(59, 155, 216, 0.16), transparent 34rem),
+        linear-gradient(180deg, #f8fbfe 0%, #eef5f9 100%);
+      color: var(--ats-ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+    }
+
+    .page-shell {
+      width: min(1240px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 48px;
+    }
+
+    .brand-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .logo-card {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 260px;
+      padding: 12px 18px;
+      background: var(--ats-white);
+      border: 1px solid rgba(219, 231, 241, 0.9);
+      border-radius: 999px;
+      box-shadow: var(--shadow-soft);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .logo-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 44px rgba(10, 47, 82, 0.13);
+    }
+
+    .logo-card img {
+      display: block;
+      width: 210px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .tool-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      background: rgba(22, 105, 170, 0.1);
+      border: 1px solid rgba(23, 105, 170, 0.16);
+      border-radius: 999px;
+      color: var(--ats-navy);
+      font-size: 0.88rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .tool-badge::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      background: var(--ats-green);
+      border-radius: 999px;
+      box-shadow: 0 0 0 5px rgba(22, 163, 74, 0.12);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(310px, 0.75fr) minmax(420px, 1.25fr);
+      gap: 28px;
+      align-items: stretch;
+      padding: 34px;
+      background:
+        linear-gradient(135deg, rgba(10, 47, 82, 0.98), rgba(23, 105, 170, 0.94)),
+        var(--ats-navy);
+      border-radius: 34px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 420px;
+      height: 420px;
+      top: -210px;
+      right: -130px;
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .hero::after {
+      width: 230px;
+      height: 230px;
+      bottom: -120px;
+      left: 25%;
+      background: rgba(22, 163, 74, 0.12);
+    }
+
+    .intro-panel,
+    .form-panel,
+    .preview-panel,
+    .output-panel {
+      position: relative;
+      z-index: 1;
+    }
+
+    .intro-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 26px;
+      min-height: 100%;
+      padding: 8px 0;
+      color: var(--ats-white);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.09);
+      color: #d9edff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 640px;
+      font-size: clamp(2.35rem, 5vw, 4.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+    }
+
+    .intro-panel p {
+      max-width: 580px;
+      margin-top: 22px;
+      color: #dbeafe;
+      font-size: 1.05rem;
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .proof-item {
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 18px;
+      color: #eef8ff;
+      font-size: 0.92rem;
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .proof-item:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .form-panel,
+    .preview-panel,
+    .output-panel {
+      background: rgba(255, 255, 255, 0.98);
+      border: 1px solid rgba(255, 255, 255, 0.74);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 18px 55px rgba(6, 31, 55, 0.16);
+    }
+
+    .form-panel {
+      padding: 28px;
+    }
+
+    .panel-heading {
+      margin-bottom: 22px;
+    }
+
+    .panel-heading h2 {
+      color: var(--ats-navy);
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+    }
+
+    .panel-heading p {
+      margin-top: 8px;
+      color: var(--ats-muted);
+      font-size: 0.96rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      color: #30435d;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .required {
+      color: var(--ats-blue);
+      font-weight: 900;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      color: var(--ats-ink);
+      background: #fbfdff;
+      border: 1px solid var(--ats-line);
+      border-radius: var(--radius-md);
+      outline: none;
+      padding: 13px 14px;
+      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    textarea {
+      min-height: 106px;
+      resize: vertical;
+    }
+
+    input:hover,
+    select:hover,
+    textarea:hover {
+      border-color: #b9d2e7;
+      background: var(--ats-white);
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      background: var(--ats-white);
+      border-color: var(--ats-blue);
+      box-shadow: 0 0 0 4px rgba(23, 105, 170, 0.13);
+    }
+
+    input[type="file"] {
+      padding: 11px 12px;
+    }
+
+    .hint {
+      color: var(--ats-muted);
+      font-size: 0.8rem;
+    }
+
+    .upload-preview {
+      display: none;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      background: var(--ats-soft);
+      border: 1px dashed #b9d2e7;
+      border-radius: var(--radius-md);
+    }
+
+    .upload-preview.active {
+      display: flex;
+    }
+
+    .upload-preview img {
+      width: 82px;
+      height: 62px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid var(--ats-line);
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      margin-top: 18px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 13px 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 900;
+      text-decoration: none;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button:disabled {
+      cursor: not-allowed;
+      opacity: 0.68;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .button-primary {
+      color: var(--ats-white);
+      background: linear-gradient(135deg, var(--ats-navy), var(--ats-blue));
+      box-shadow: 0 14px 28px rgba(10, 47, 82, 0.2);
+    }
+
+    .button-primary:hover:not(:disabled) {
+      box-shadow: 0 18px 36px rgba(10, 47, 82, 0.26);
+    }
+
+    .button-secondary {
+      color: var(--ats-navy);
+      background: var(--ats-white);
+      border: 1px solid var(--ats-line);
+    }
+
+    .button-secondary:hover:not(:disabled) {
+      border-color: #b9d2e7;
+      box-shadow: 0 12px 26px rgba(10, 47, 82, 0.09);
+    }
+
+    .button-copy {
+      color: var(--ats-white);
+      background: linear-gradient(135deg, var(--ats-green-dark), var(--ats-green));
+      box-shadow: 0 14px 28px rgba(22, 163, 74, 0.18);
+    }
+
+    .button-copy:hover:not(:disabled) {
+      box-shadow: 0 18px 36px rgba(22, 163, 74, 0.24);
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      min-height: 26px;
+      margin-top: 14px;
+      color: var(--ats-muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .status-row.error {
+      color: var(--ats-warning);
+    }
+
+    .status-row.success {
+      color: var(--ats-green-dark);
+    }
+
+    .spinner {
+      display: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.55);
+      border-top-color: var(--ats-white);
+      border-radius: 999px;
+      animation: spin 800ms linear infinite;
+    }
+
+    .button.loading .spinner {
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+      gap: 28px;
+      margin-top: 28px;
+      align-items: start;
+    }
+
+    .output-panel,
+    .preview-panel {
+      padding: 28px;
+    }
+
+    .output-topline {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .output-topline h2 {
+      color: var(--ats-navy);
+      font-size: clamp(1.35rem, 3vw, 1.8rem);
+      letter-spacing: -0.02em;
+    }
+
+    .counter-pill {
+      flex: 0 0 auto;
+      padding: 8px 12px;
+      color: var(--ats-navy);
+      background: var(--ats-blue-light);
+      border: 1px solid rgba(23, 105, 170, 0.12);
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    #generatedEmail {
+      min-height: 420px;
+      line-height: 1.72;
+      background: #fbfdff;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.9rem;
+    }
+
+    .output-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .output-actions .button {
+      min-width: 150px;
+    }
+
+    .email-frame {
+      overflow: hidden;
+      background: #eef5f9;
+      border: 1px solid var(--ats-line);
+      border-radius: 20px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+    }
+
+    .email-preview {
+      width: min(100%, 640px);
+      margin: 0 auto;
+      padding: 28px 14px;
+      color: #213047;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .email-card {
+      overflow: hidden;
+      background: #ffffff;
+      border-radius: 18px;
+      border: 1px solid #dbe7f1;
+      box-shadow: 0 14px 30px rgba(10, 47, 82, 0.12);
+    }
+
+    .preview-header {
+      padding: 20px 24px;
+      background: #0a2f52;
+      color: #ffffff;
+    }
+
+    .preview-header img {
+      width: 182px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.18));
+    }
+
+    .preview-header p {
+      color: #dbeafe;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .hero-image {
+      display: none;
+      width: 100%;
+      max-height: 260px;
+      object-fit: cover;
+      border-bottom: 1px solid #dbe7f1;
+    }
+
+    .hero-image.active {
+      display: block;
+    }
+
+    .preview-body {
+      padding: 28px 24px;
+    }
+
+    .preview-body .preheader {
+      margin-bottom: 10px;
+      color: #65758b;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .preview-body h3 {
+      margin-bottom: 16px;
+      color: #0a2f52;
+      font-size: clamp(1.45rem, 4vw, 2.15rem);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+    }
+
+    .preview-body p {
+      margin-bottom: 14px;
+      color: #30435d;
+      font-size: 15px;
+    }
+
+    .bullet-list {
+      margin: 18px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .bullet-list li {
+      position: relative;
+      margin-bottom: 10px;
+      padding-left: 26px;
+      color: #30435d;
+      font-size: 15px;
+    }
+
+    .bullet-list li::before {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #16a34a;
+      box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.12);
+    }
+
+    .preview-cta {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 14px 18px;
+      color: #ffffff;
+      background: #1769aa;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .preview-footer {
+      padding: 18px 24px;
+      background: #f4f8fb;
+      border-top: 1px solid #dbe7f1;
+      color: #65758b;
+      font-size: 12px;
+    }
+
+    .screen-reader-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 1040px) {
+      .hero,
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-panel {
+        min-height: auto;
+      }
+
+      .proof-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell {
+        width: min(100% - 22px, 1180px);
+        padding-top: 18px;
+      }
+
+      .brand-header {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 16px;
+      }
+
+      .hero {
+        padding: 20px;
+        border-radius: 24px;
+      }
+
+      .form-panel,
+      .preview-panel,
+      .output-panel {
+        padding: 20px;
+        border-radius: 22px;
+      }
+
+      .form-grid,
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .proof-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .output-topline {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .counter-pill {
+        width: fit-content;
+      }
+
+      .output-actions .button {
+        flex: 1 1 100%;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .logo-card {
+        width: 100%;
+        max-width: none;
+      }
+
+      .tool-badge {
+        white-space: normal;
+      }
+
+      .proof-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="brand-header" aria-label="Air Tech Solutions email tool header">
+      <a class="logo-card" href="#generator" aria-label="Air Tech Solutions Email Template Generator">
+        <img src="https://assets.zyrosite.com/vdR28j7XgM9CU328/ats-color-logo-8-rToABcJJPZRnl9z1.png" alt="Air Tech Solutions logo" />
+      </a>
+      <div class="tool-badge">Internal Email Content Tool</div>
+    </header>
+
+    <section class="hero" id="generator">
+      <div class="intro-panel">
+        <div>
+          <span class="eyebrow">Commercial exterior maintenance email</span>
+          <h1>Email Template Generator</h1>
+          <p>
+            Build targeted emails for Air Tech Solutions by choosing the sender avatar, recipient segment, service focus, campaign goal, and optional image asset.
+          </p>
+        </div>
+
+        <div class="proof-grid" aria-label="Email guidance">
+          <div class="proof-item">Avatar-aware voice</div>
+          <div class="proof-item">Targeted messaging</div>
+          <div class="proof-item">Image-ready layout</div>
+          <div class="proof-item">Preview before sending</div>
+        </div>
+      </div>
+
+      <section class="form-panel" aria-labelledby="form-title">
+        <div class="panel-heading">
+          <h2 id="form-title">Build an email brief</h2>
+          <p>Select an avatar and target audience, upload an optional image, then generate a complete email template with a live preview.</p>
+        </div>
+
+        <form id="emailForm" class="form-grid" novalidate>
+          <div class="form-group">
+            <label for="avatar">Sender Avatar <span class="required" aria-hidden="true">*</span></label>
+            <select id="avatar" name="avatar" required>
+              <option value="trustedAdvisor">Trusted Maintenance Advisor</option>
+              <option value="operationsPartner">Operations Partner</option>
+              <option value="technicalExpert">Technical Cleaning Expert</option>
+              <option value="localNeighbor">Local Community Neighbor</option>
+              <option value="executiveConcierge">Executive Concierge</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="target">Target Audience <span class="required" aria-hidden="true">*</span></label>
+            <select id="target" name="target" required>
+              <option>Commercial Property Managers</option>
+              <option>Multifamily Operators</option>
+              <option>Hotel Operations Teams</option>
+              <option>HOA Managers</option>
+              <option>Facilities Directors</option>
+              <option>Commercial Building Owners</option>
+              <option>Residential Homeowners</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="serviceFocus">Service Focus <span class="required" aria-hidden="true">*</span></label>
+            <select id="serviceFocus" name="serviceFocus" required>
+              <option>Exterior Building Washing</option>
+              <option>Soft Washing</option>
+              <option>Lucid Bot Soft Washing</option>
+              <option>Surface Cleaning</option>
+              <option>Dryer Vent Cleaning</option>
+              <option>Commercial Window Cleaning</option>
+              <option>Roof Cleaning</option>
+              <option>Gutter Cleaning</option>
+              <option>Preventative Maintenance</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="goal">Campaign Goal <span class="required" aria-hidden="true">*</span></label>
+            <select id="goal" name="goal" required>
+              <option>Book a Property Assessment</option>
+              <option>Promote Seasonal Maintenance</option>
+              <option>Educate on Preventative Care</option>
+              <option>Win Back Dormant Leads</option>
+              <option>Introduce Air Tech Solutions</option>
+              <option>Follow Up After an Estimate</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tone">Tone <span class="required" aria-hidden="true">*</span></label>
+            <select id="tone" name="tone" required>
+              <option>Professional and Educational</option>
+              <option>Commercial and Operational</option>
+              <option>Preventative Maintenance Focused</option>
+              <option>Warm and Helpful</option>
+              <option>Simple and Direct</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cta">CTA <span class="required" aria-hidden="true">*</span></label>
+            <input id="cta" name="cta" type="text" autocomplete="off" required value="Schedule a property assessment" />
+          </div>
+
+          <div class="form-group full">
+            <label for="headline">Optional Headline</label>
+            <input id="headline" name="headline" type="text" autocomplete="off" placeholder="Example: Keep exterior maintenance off your emergency list" />
+          </div>
+
+          <div class="form-group full">
+            <label for="imageUpload">Email Image Upload</label>
+            <input id="imageUpload" name="imageUpload" type="file" accept="image/*" />
+            <span class="hint">Upload a job photo, building exterior, before/after image, or seasonal visual. The image stays in this browser session.</span>
+            <div id="uploadPreview" class="upload-preview" aria-live="polite">
+              <img id="uploadedThumb" alt="Uploaded email visual preview" />
+              <div>
+                <strong id="uploadedName">Image selected</strong>
+                <div class="hint">This image will appear in the email preview and exported HTML.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group full">
+            <label for="notes">Optional Notes</label>
+            <textarea id="notes" name="notes" placeholder="Add offer details, property type, seasonal urgency, scheduling constraints, or preferred wording."></textarea>
+            <span class="hint">Example: Mention low-disruption scheduling for hotel entrances before peak travel season.</span>
+          </div>
+
+          <div class="form-group full">
+            <div class="actions">
+              <button id="generateBtn" class="button button-primary" type="submit">
+                <span class="spinner" aria-hidden="true"></span>
+                <span id="generateLabel">Generate Email Template</span>
+              </button>
+              <button id="resetBtn" class="button button-secondary" type="button">Reset / Clear</button>
+            </div>
+            <div id="status" class="status-row" role="status" aria-live="polite"></div>
+          </div>
+        </form>
+      </section>
+    </section>
+
+    <section class="workspace" aria-label="Generated email workspace">
+      <section class="output-panel" aria-labelledby="output-title">
+        <div class="output-topline">
+          <div class="panel-heading">
+            <h2 id="output-title">Generated Email HTML</h2>
+            <p>Review, edit, copy, or download the HTML before loading it into your email platform.</p>
+          </div>
+          <div id="characterCounter" class="counter-pill">0 characters</div>
+        </div>
+        <label class="screen-reader-only" for="generatedEmail">Generated email HTML</label>
+        <textarea id="generatedEmail" spellcheck="true" placeholder="Your generated email HTML will appear here."></textarea>
+        <div class="output-actions">
+          <button id="copyHtmlBtn" class="button button-copy" type="button">Copy HTML</button>
+          <button id="copyTextBtn" class="button button-secondary" type="button">Copy Text</button>
+          <button id="downloadBtn" class="button button-secondary" type="button">Download HTML</button>
+          <button id="clearOutputBtn" class="button button-secondary" type="button">Clear Output</button>
+        </div>
+        <div id="copyStatus" class="status-row" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="preview-panel" aria-labelledby="preview-title">
+        <div class="panel-heading">
+          <h2 id="preview-title">Email Preview</h2>
+          <p>This preview updates when you generate, edit the HTML, or upload an image.</p>
+        </div>
+        <div class="email-frame">
+          <div id="emailPreview" class="email-preview"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const logoUrl = "https://assets.zyrosite.com/vdR28j7XgM9CU328/ats-color-logo-8-rToABcJJPZRnl9z1.png";
+
+    const avatarProfiles = {
+      trustedAdvisor: {
+        label: "Trusted Maintenance Advisor",
+        greeting: "I wanted to share a practical maintenance note for your property planning.",
+        promise: "protect curb appeal, reduce avoidable service calls, and keep exterior issues from becoming urgent repairs",
+        signoff: "Your Air Tech Solutions maintenance team"
+      },
+      operationsPartner: {
+        label: "Operations Partner",
+        greeting: "I know exterior maintenance has to work around tenants, guests, residents, vendors, and operating hours.",
+        promise: "coordinate low-disruption cleaning that supports daily operations and long-term asset care",
+        signoff: "Air Tech Solutions Operations Support"
+      },
+      technicalExpert: {
+        label: "Technical Cleaning Expert",
+        greeting: "The right cleaning method matters, especially when surfaces, access points, and building materials vary across a property.",
+        promise: "match the cleaning approach to the surface so your team gets safe, consistent, and professional results",
+        signoff: "Air Tech Solutions Exterior Cleaning Specialists"
+      },
+      localNeighbor: {
+        label: "Local Community Neighbor",
+        greeting: "As a local exterior cleaning team, we care about helping nearby properties look cared for and stay easier to maintain.",
+        promise: "bring responsive scheduling, clear communication, and dependable follow-through to your next project",
+        signoff: "Your neighbors at Air Tech Solutions"
+      },
+      executiveConcierge: {
+        label: "Executive Concierge",
+        greeting: "Your property presentation should feel polished without creating extra coordination work for your team.",
+        promise: "deliver a streamlined, professional experience from assessment through completion",
+        signoff: "Air Tech Solutions Client Care"
+      }
+    };
+
+    const targetInsights = {
+      "Commercial Property Managers": {
+        pain: "balancing budgets, tenant expectations, vendor reliability, and the long-term appearance of multiple assets",
+        benefit: "a cleaner exterior that supports tenant confidence and makes preventative maintenance easier to defend in the budget",
+        detail: "documented recommendations and scheduling windows that fit the property calendar"
+      },
+      "Multifamily Operators": {
+        pain: "keeping common areas, breezeways, siding, dumpster pads, and resident-facing spaces presentable without disrupting daily life",
+        benefit: "a better resident experience and fewer complaints tied to visible buildup or neglected exterior surfaces",
+        detail: "phased work plans designed around resident traffic and leasing activity"
+      },
+      "Hotel Operations Teams": {
+        pain: "maintaining guest-facing curb appeal while protecting arrivals, entrances, patios, and service areas from unnecessary downtime",
+        benefit: "a sharper first impression for guests and a maintenance plan that respects occupancy patterns",
+        detail: "early, off-peak, or phased scheduling options to minimize guest disruption"
+      },
+      "HOA Managers": {
+        pain: "responding to board priorities, resident concerns, and shared-area appearance standards",
+        benefit: "clearer community presentation and a more proactive approach to exterior upkeep",
+        detail: "before-and-after friendly project scopes that are easy to communicate to boards and residents"
+      },
+      "Facilities Directors": {
+        pain: "protecting building materials, reducing safety concerns, and keeping vendors aligned with operational requirements",
+        benefit: "a safer, cleaner exterior program that supports facility standards and capital planning",
+        detail: "method recommendations based on surface type, access, soil level, and traffic patterns"
+      },
+      "Commercial Building Owners": {
+        pain: "protecting asset value, lease appeal, and the professional appearance of the property",
+        benefit: "preserved curb appeal and a more proactive maintenance posture for high-visibility exterior surfaces",
+        detail: "straightforward scopes that help prioritize the highest-impact areas first"
+      },
+      "Residential Homeowners": {
+        pain: "keeping a home exterior looking cared for without risking damage from the wrong cleaning method",
+        benefit: "renewed curb appeal and safer exterior cleaning for siding, concrete, gutters, roofs, and windows",
+        detail: "clear recommendations for the surfaces that need attention now and what can wait"
+      }
+    };
+
+    const serviceBenefits = {
+      "Exterior Building Washing": "remove organic growth, staining, and buildup from high-visibility exterior surfaces",
+      "Soft Washing": "clean delicate exterior areas with a lower-pressure process designed for the surface",
+      "Lucid Bot Soft Washing": "reach taller or harder-to-access exterior areas with efficient robotic soft washing support",
+      "Surface Cleaning": "restore cleaner walkways, entrances, dumpster pads, pool decks, drive lanes, and common concrete areas",
+      "Dryer Vent Cleaning": "support airflow, reduce lint buildup, and improve routine safety maintenance",
+      "Commercial Window Cleaning": "improve natural light, presentation, and the view from guest, tenant, and customer spaces",
+      "Roof Cleaning": "address roof streaks and organic growth with a method built to protect the roofing surface",
+      "Gutter Cleaning": "help water move correctly and reduce overflow issues around the property exterior",
+      "Preventative Maintenance": "plan exterior care before staining, buildup, and drainage issues become larger problems"
+    };
+
+    const goalCopy = {
+      "Book a Property Assessment": {
+        subject: "Would a quick exterior assessment help your team plan ahead?",
+        preheader: "A practical way to identify priority areas before exterior issues become urgent.",
+        closing: "If it would be helpful, we can walk the property, identify the highest-priority exterior areas, and recommend a practical next step."
+      },
+      "Promote Seasonal Maintenance": {
+        subject: "A seasonal exterior maintenance check before the busy stretch",
+        preheader: "Plan exterior cleaning around weather, traffic, guests, residents, and operating needs.",
+        closing: "This is a good time to get ahead of buildup before schedules tighten and exterior surfaces see heavier traffic."
+      },
+      "Educate on Preventative Care": {
+        subject: "A preventative maintenance note for exterior surfaces",
+        preheader: "Small exterior issues are easier to manage when they are addressed before they spread.",
+        closing: "Preventative cleaning helps your team make decisions based on condition, priority, and timing instead of emergency pressure."
+      },
+      "Win Back Dormant Leads": {
+        subject: "Still thinking through exterior cleaning priorities?",
+        preheader: "Air Tech Solutions can help revisit scope, timing, and the highest-impact next step.",
+        closing: "If the project is still on your radar, we can help refresh the scope and make the next step simple."
+      },
+      "Introduce Air Tech Solutions": {
+        subject: "A practical exterior cleaning partner for your property",
+        preheader: "Meet Air Tech Solutions and see how we support professional exterior maintenance.",
+        closing: "We would be glad to learn more about your property and share where Air Tech Solutions can help."
+      },
+      "Follow Up After an Estimate": {
+        subject: "Following up on your Air Tech Solutions estimate",
+        preheader: "A quick next step to finalize timing, scope, and scheduling expectations.",
+        closing: "If the estimate still looks aligned, we can answer questions, confirm details, and reserve a service window."
+      }
+    };
+
+    const toneOpeners = {
+      "Professional and Educational": "A well-maintained exterior does more than improve appearance. It helps teams communicate care, protect surfaces, and plan service before problems become more expensive.",
+      "Commercial and Operational": "Exterior cleaning works best when it supports the way the property actually operates: traffic flow, access requirements, tenant or guest expectations, and timing constraints.",
+      "Preventative Maintenance Focused": "Preventative exterior care can help your team stay ahead of staining, organic growth, drainage concerns, and avoidable last-minute work orders.",
+      "Warm and Helpful": "If your exterior maintenance list is growing, you are not alone. A clear plan can make it much easier to decide what needs attention first.",
+      "Simple and Direct": "Air Tech Solutions can help clean and maintain key exterior areas so your property looks cared for and stays easier to manage."
+    };
+
+    const emailForm = document.getElementById("emailForm");
+    const generateBtn = document.getElementById("generateBtn");
+    const generateLabel = document.getElementById("generateLabel");
+    const resetBtn = document.getElementById("resetBtn");
+    const copyHtmlBtn = document.getElementById("copyHtmlBtn");
+    const copyTextBtn = document.getElementById("copyTextBtn");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const clearOutputBtn = document.getElementById("clearOutputBtn");
+    const statusMessage = document.getElementById("status");
+    const copyStatus = document.getElementById("copyStatus");
+    const generatedEmail = document.getElementById("generatedEmail");
+    const characterCounter = document.getElementById("characterCounter");
+    const emailPreview = document.getElementById("emailPreview");
+    const uploadPreview = document.getElementById("uploadPreview");
+    const uploadedThumb = document.getElementById("uploadedThumb");
+    const uploadedName = document.getElementById("uploadedName");
+
+    const fields = {
+      avatar: document.getElementById("avatar"),
+      target: document.getElementById("target"),
+      serviceFocus: document.getElementById("serviceFocus"),
+      goal: document.getElementById("goal"),
+      tone: document.getElementById("tone"),
+      cta: document.getElementById("cta"),
+      headline: document.getElementById("headline"),
+      imageUpload: document.getElementById("imageUpload"),
+      notes: document.getElementById("notes")
+    };
+
+    const defaults = {
+      avatar: "trustedAdvisor",
+      target: "Commercial Property Managers",
+      serviceFocus: "Exterior Building Washing",
+      goal: "Book a Property Assessment",
+      tone: "Professional and Educational",
+      cta: "Schedule a property assessment",
+      headline: "",
+      notes: ""
+    };
+
+    let uploadedImageDataUrl = "";
+    let uploadedImageAlt = "Uploaded Air Tech Solutions email visual";
+
+    function setStatus(message, type) {
+      statusMessage.textContent = message;
+      statusMessage.className = "status-row";
+
+      if (type) {
+        statusMessage.classList.add(type);
+      }
+    }
+
+    function setCopyStatus(message, type) {
+      copyStatus.textContent = message;
+      copyStatus.className = "status-row";
+
+      if (type) {
+        copyStatus.classList.add(type);
+      }
+    }
+
+    function setLoading(isLoading) {
+      generateBtn.disabled = isLoading;
+      resetBtn.disabled = isLoading;
+      generateBtn.classList.toggle("loading", isLoading);
+      generateLabel.textContent = isLoading ? "Generating..." : "Generate Email Template";
+    }
+
+    function getTrimmedValue(field) {
+      return field.value.trim();
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function updateCharacterCounter() {
+      const count = generatedEmail.value.length;
+      characterCounter.textContent = count === 1 ? "1 character" : count.toLocaleString() + " characters";
+    }
+
+    function validateForm() {
+      const requiredFields = [fields.avatar, fields.target, fields.serviceFocus, fields.goal, fields.tone, fields.cta];
+      const missingField = requiredFields.find(function(field) {
+        return !getTrimmedValue(field);
+      });
+
+      if (missingField) {
+        missingField.focus();
+        setStatus("Please complete all required fields before generating an email.", "error");
+        return false;
+      }
+
+      return true;
+    }
+
+    function buildEmailData() {
+      const avatar = avatarProfiles[fields.avatar.value];
+      const target = targetInsights[fields.target.value];
+      const goal = goalCopy[fields.goal.value];
+      const serviceBenefit = serviceBenefits[fields.serviceFocus.value];
+      const headline = getTrimmedValue(fields.headline) || goal.subject;
+      const notes = getTrimmedValue(fields.notes);
+
+      return {
+        avatar,
+        target,
+        goal,
+        headline,
+        notes,
+        audience: getTrimmedValue(fields.target),
+        serviceFocus: getTrimmedValue(fields.serviceFocus),
+        tone: getTrimmedValue(fields.tone),
+        cta: getTrimmedValue(fields.cta),
+        opener: toneOpeners[fields.tone.value],
+        serviceBenefit
+      };
+    }
+
+    function buildEmailText(data) {
+      const noteSentence = data.notes ? "\n\nAdditional context: " + data.notes : "";
+
+      return [
+        "Subject: " + data.goal.subject,
+        "Preheader: " + data.goal.preheader,
+        "",
+        data.headline,
+        "",
+        "Hi there,",
+        "",
+        data.avatar.greeting,
+        "",
+        data.opener,
+        "",
+        "For " + data.audience.toLowerCase() + ", the challenge is often " + data.target.pain + ". With " + data.serviceFocus.toLowerCase() + ", Air Tech Solutions can help " + data.serviceBenefit + " while helping your team " + data.avatar.promise + ".",
+        "",
+        "What this can support:",
+        "• " + data.target.benefit,
+        "• " + data.target.detail,
+        "• Clear communication before, during, and after the work",
+        "",
+        data.goal.closing,
+        noteSentence,
+        "",
+        data.cta,
+        "",
+        data.avatar.signoff
+      ].join("\n");
+    }
+
+    function buildEmailHtml(data) {
+      const safeHeadline = escapeHtml(data.headline);
+      const safeSubject = escapeHtml(data.goal.subject);
+      const safePreheader = escapeHtml(data.goal.preheader);
+      const safeAudience = escapeHtml(data.audience.toLowerCase());
+      const safeService = escapeHtml(data.serviceFocus.toLowerCase());
+      const safeCta = escapeHtml(data.cta);
+      const safeNote = data.notes ? "<p style=\"margin:0 0 16px;color:#30435d;font-size:15px;line-height:1.65;\"><strong>Additional context:</strong> " + escapeHtml(data.notes) + "</p>" : "";
+      const imageBlock = uploadedImageDataUrl ? "<img src=\"" + uploadedImageDataUrl + "\" alt=\"" + escapeHtml(uploadedImageAlt) + "\" style=\"display:block;width:100%;max-height:300px;object-fit:cover;border-bottom:1px solid #dbe7f1;\" />" : "";
+
+      return "<!DOCTYPE html>\n" +
+        "<html lang=\"en\">\n" +
+        "<head>\n" +
+        "  <meta charset=\"UTF-8\" />\n" +
+        "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n" +
+        "  <title>" + safeSubject + "</title>\n" +
+        "</head>\n" +
+        "<body style=\"margin:0;padding:0;background:#eef5f9;font-family:Arial,Helvetica,sans-serif;color:#213047;\">\n" +
+        "  <span style=\"display:none!important;visibility:hidden;opacity:0;color:transparent;height:0;width:0;overflow:hidden;\">" + safePreheader + "</span>\n" +
+        "  <table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background:#eef5f9;margin:0;padding:28px 12px;\">\n" +
+        "    <tr>\n" +
+        "      <td align=\"center\">\n" +
+        "        <table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width:640px;background:#ffffff;border:1px solid #dbe7f1;border-radius:18px;overflow:hidden;\">\n" +
+        "          <tr>\n" +
+        "            <td style=\"padding:20px 24px;background:#0a2f52;color:#ffffff;\">\n" +
+        "              <img src=\"" + logoUrl + "\" alt=\"Air Tech Solutions\" width=\"182\" style=\"display:block;width:182px;max-width:100%;height:auto;margin:0 0 12px;\" />\n" +
+        "              <p style=\"margin:0;color:#dbeafe;font-size:13px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;\">" + escapeHtml(data.avatar.label) + " for " + escapeHtml(data.audience) + "</p>\n" +
+        "            </td>\n" +
+        "          </tr>\n" +
+        (imageBlock ? "          <tr><td>" + imageBlock + "</td></tr>\n" : "") +
+        "          <tr>\n" +
+        "            <td style=\"padding:28px 24px;\">\n" +
+        "              <p style=\"margin:0 0 10px;color:#65758b;font-size:13px;font-weight:700;text-transform:uppercase;\">" + safePreheader + "</p>\n" +
+        "              <h1 style=\"margin:0 0 16px;color:#0a2f52;font-size:32px;line-height:1.08;letter-spacing:-0.035em;\">" + safeHeadline + "</h1>\n" +
+        "              <p style=\"margin:0 0 14px;color:#30435d;font-size:15px;line-height:1.65;\">Hi there,</p>\n" +
+        "              <p style=\"margin:0 0 14px;color:#30435d;font-size:15px;line-height:1.65;\">" + escapeHtml(data.avatar.greeting) + "</p>\n" +
+        "              <p style=\"margin:0 0 14px;color:#30435d;font-size:15px;line-height:1.65;\">" + escapeHtml(data.opener) + "</p>\n" +
+        "              <p style=\"margin:0 0 14px;color:#30435d;font-size:15px;line-height:1.65;\">For " + safeAudience + ", the challenge is often " + escapeHtml(data.target.pain) + ". With " + safeService + ", Air Tech Solutions can help " + escapeHtml(data.serviceBenefit) + " while helping your team " + escapeHtml(data.avatar.promise) + ".</p>\n" +
+        "              <p style=\"margin:18px 0 8px;color:#0a2f52;font-size:15px;font-weight:700;\">What this can support:</p>\n" +
+        "              <ul style=\"margin:0 0 18px;padding-left:22px;color:#30435d;font-size:15px;line-height:1.65;\">\n" +
+        "                <li>" + escapeHtml(data.target.benefit) + "</li>\n" +
+        "                <li>" + escapeHtml(data.target.detail) + "</li>\n" +
+        "                <li>Clear communication before, during, and after the work</li>\n" +
+        "              </ul>\n" +
+        "              <p style=\"margin:0 0 16px;color:#30435d;font-size:15px;line-height:1.65;\">" + escapeHtml(data.goal.closing) + "</p>\n" +
+        "              " + safeNote + "\n" +
+        "              <a href=\"mailto:info@airtechsolutions.com?subject=" + encodeURIComponent(data.goal.subject) + "\" style=\"display:inline-block;margin-top:6px;padding:14px 18px;color:#ffffff;background:#1769aa;border-radius:12px;font-size:15px;font-weight:900;text-decoration:none;\">" + safeCta + "</a>\n" +
+        "              <p style=\"margin:22px 0 0;color:#30435d;font-size:15px;line-height:1.65;\">" + escapeHtml(data.avatar.signoff) + "</p>\n" +
+        "            </td>\n" +
+        "          </tr>\n" +
+        "          <tr>\n" +
+        "            <td style=\"padding:18px 24px;background:#f4f8fb;border-top:1px solid #dbe7f1;color:#65758b;font-size:12px;line-height:1.6;\">\n" +
+        "              Air Tech Solutions • Exterior cleaning and maintenance support<br />Review all AI-assisted content for accuracy before sending.\n" +
+        "            </td>\n" +
+        "          </tr>\n" +
+        "        </table>\n" +
+        "      </td>\n" +
+        "    </tr>\n" +
+        "  </table>\n" +
+        "</body>\n" +
+        "</html>";
+    }
+
+    function renderPreviewFromData(data) {
+      emailPreview.innerHTML = "" +
+        "<div class=\"email-card\">" +
+        "  <div class=\"preview-header\">" +
+        "    <img src=\"" + logoUrl + "\" alt=\"Air Tech Solutions\" />" +
+        "    <p>" + escapeHtml(data.avatar.label) + " for " + escapeHtml(data.audience) + "</p>" +
+        "  </div>" +
+        "  <img id=\"previewHeroImage\" class=\"hero-image" + (uploadedImageDataUrl ? " active" : "") + "\" src=\"" + escapeHtml(uploadedImageDataUrl) + "\" alt=\"" + escapeHtml(uploadedImageAlt) + "\" />" +
+        "  <div class=\"preview-body\">" +
+        "    <p class=\"preheader\">" + escapeHtml(data.goal.preheader) + "</p>" +
+        "    <h3>" + escapeHtml(data.headline) + "</h3>" +
+        "    <p>Hi there,</p>" +
+        "    <p>" + escapeHtml(data.avatar.greeting) + "</p>" +
+        "    <p>" + escapeHtml(data.opener) + "</p>" +
+        "    <p>For " + escapeHtml(data.audience.toLowerCase()) + ", the challenge is often " + escapeHtml(data.target.pain) + ". With " + escapeHtml(data.serviceFocus.toLowerCase()) + ", Air Tech Solutions can help " + escapeHtml(data.serviceBenefit) + " while helping your team " + escapeHtml(data.avatar.promise) + ".</p>" +
+        "    <ul class=\"bullet-list\">" +
+        "      <li>" + escapeHtml(data.target.benefit) + "</li>" +
+        "      <li>" + escapeHtml(data.target.detail) + "</li>" +
+        "      <li>Clear communication before, during, and after the work</li>" +
+        "    </ul>" +
+        "    <p>" + escapeHtml(data.goal.closing) + "</p>" +
+        (data.notes ? "    <p><strong>Additional context:</strong> " + escapeHtml(data.notes) + "</p>" : "") +
+        "    <a class=\"preview-cta\" href=\"mailto:info@airtechsolutions.com\">" + escapeHtml(data.cta) + "</a>" +
+        "    <p style=\"margin-top:22px;\">" + escapeHtml(data.avatar.signoff) + "</p>" +
+        "  </div>" +
+        "  <div class=\"preview-footer\">Air Tech Solutions • Exterior cleaning and maintenance support<br />Review all AI-assisted content for accuracy before sending.</div>" +
+        "</div>";
+    }
+
+    function generateEmail(event) {
+      event.preventDefault();
+      setCopyStatus("", "");
+
+      if (!validateForm()) {
+        return;
+      }
+
+      setLoading(true);
+      setStatus("Generating email template from the selected avatar and target audience...", "");
+
+      window.setTimeout(function() {
+        const data = buildEmailData();
+        generatedEmail.value = buildEmailHtml(data);
+        renderPreviewFromData(data);
+        updateCharacterCounter();
+        setStatus("Email template generated successfully. Review the preview before sending.", "success");
+        setLoading(false);
+      }, 250);
+    }
+
+    async function copyValueToClipboard(value, successMessage) {
+      if (!value.trim()) {
+        setCopyStatus("There is no generated email to copy yet.", "error");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(value);
+        setCopyStatus(successMessage, "success");
+      } catch (error) {
+        generatedEmail.focus();
+        generatedEmail.select();
+        setCopyStatus("Clipboard access was blocked. The generated HTML is selected so you can copy it manually.", "error");
+      }
+    }
+
+    function copyEmailHtml() {
+      copyValueToClipboard(generatedEmail.value, "Email HTML copied to clipboard.");
+    }
+
+    function copyEmailText() {
+      const data = buildEmailData();
+      copyValueToClipboard(buildEmailText(data), "Plain-text email copied to clipboard.");
+    }
+
+    function downloadEmailHtml() {
+      const html = generatedEmail.value.trim();
+
+      if (!html) {
+        setCopyStatus("Generate an email before downloading the HTML file.", "error");
+        return;
+      }
+
+      const blob = new Blob([html], { type: "text/html" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "air-tech-solutions-email-template.html";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      setCopyStatus("Email HTML download started.", "success");
+    }
+
+    function resetFormAndOutput() {
+      fields.avatar.value = defaults.avatar;
+      fields.target.value = defaults.target;
+      fields.serviceFocus.value = defaults.serviceFocus;
+      fields.goal.value = defaults.goal;
+      fields.tone.value = defaults.tone;
+      fields.cta.value = defaults.cta;
+      fields.headline.value = defaults.headline;
+      fields.notes.value = defaults.notes;
+      fields.imageUpload.value = "";
+      uploadedImageDataUrl = "";
+      uploadedImageAlt = "Uploaded Air Tech Solutions email visual";
+      uploadPreview.classList.remove("active");
+      uploadedThumb.removeAttribute("src");
+      generatedEmail.value = "";
+      updateCharacterCounter();
+      renderPreviewFromData(buildEmailData());
+      setStatus("Form reset and output cleared.", "success");
+      setCopyStatus("", "");
+      fields.avatar.focus();
+    }
+
+    function clearOutput() {
+      generatedEmail.value = "";
+      updateCharacterCounter();
+      setCopyStatus("Output cleared.", "success");
+    }
+
+    function handleImageUpload(event) {
+      const file = event.target.files && event.target.files[0];
+
+      if (!file) {
+        uploadedImageDataUrl = "";
+        uploadPreview.classList.remove("active");
+        renderPreviewFromData(buildEmailData());
+        return;
+      }
+
+      if (!file.type.startsWith("image/")) {
+        fields.imageUpload.value = "";
+        setStatus("Please choose an image file for the email template.", "error");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(loadEvent) {
+        uploadedImageDataUrl = loadEvent.target.result;
+        uploadedImageAlt = file.name.replace(/\.[^/.]+$/, "") || "Uploaded Air Tech Solutions email visual";
+        uploadedThumb.src = uploadedImageDataUrl;
+        uploadedName.textContent = file.name;
+        uploadPreview.classList.add("active");
+        renderPreviewFromData(buildEmailData());
+        setStatus("Image added to the email preview. Generate again to include it in exported HTML.", "success");
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function updatePreviewFromHtml() {
+      if (!generatedEmail.value.trim()) {
+        renderPreviewFromData(buildEmailData());
+        updateCharacterCounter();
+        return;
+      }
+
+      emailPreview.innerHTML = generatedEmail.value;
+      updateCharacterCounter();
+    }
+
+    emailForm.addEventListener("submit", generateEmail);
+    fields.imageUpload.addEventListener("change", handleImageUpload);
+    copyHtmlBtn.addEventListener("click", copyEmailHtml);
+    copyTextBtn.addEventListener("click", copyEmailText);
+    downloadBtn.addEventListener("click", downloadEmailHtml);
+    resetBtn.addEventListener("click", resetFormAndOutput);
+    clearOutputBtn.addEventListener("click", clearOutput);
+    generatedEmail.addEventListener("input", updatePreviewFromHtml);
+
+    renderPreviewFromData(buildEmailData());
+    updateCharacterCounter();
+  </script>
+</body>
+</html>
