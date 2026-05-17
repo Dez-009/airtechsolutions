@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Air Tech Solutions | LinkedIn Post Generator</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:#f4f8fb;
+  color:#1e293b;
+  min-height:100vh;
+}
+
+.hero{
+  background:linear-gradient(135deg,#0f3b68,#1d5d96);
+  padding:60px 20px 120px;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero::before{
+  content:'';
+  position:absolute;
+  width:700px;
+  height:700px;
+  background:rgba(255,255,255,0.05);
+  border-radius:50%;
+  top:-350px;
+  right:-250px;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  position:relative;
+  z-index:1;
+}
+
+.logo{
+  width:220px;
+  margin-bottom:30px;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+}
+
+.hero h1{
+  color:white;
+  font-size:58px;
+  line-height:1.05;
+  margin-bottom:20px;
+  font-weight:800;
+}
+
+.hero p{
+  color:#dbeafe;
+  font-size:18px;
+  line-height:1.7;
+  max-width:580px;
+}
+
+.card{
+  background:white;
+  border-radius:24px;
+  padding:35px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.12);
+  transform:translateY(70px);
+}
+
+.card h2{
+  color:#0f3b68;
+  margin-bottom:25px;
+  font-size:28px;
+}
+
+.form-group{
+  margin-bottom:18px;
+}
+
+label{
+  display:block;
+  margin-bottom:8px;
+  font-size:14px;
+  font-weight:600;
+  color:#334155;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  border:1px solid #dbe4ee;
+  border-radius:14px;
+  padding:14px 16px;
+  font-size:15px;
+  font-family:'Inter',sans-serif;
+  transition:0.25s ease;
+  background:white;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  outline:none;
+  border-color:#1d5d96;
+  box-shadow:0 0 0 4px rgba(29,93,150,0.12);
+}
+
+button{
+  width:100%;
+  border:none;
+  background:linear-gradient(135deg,#0f3b68,#1d5d96);
+  color:white;
+  padding:16px;
+  border-radius:14px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.25s ease;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(15,59,104,0.25);
+}
+
+button:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+  transform:none;
+}
+
+.output-section{
+  margin-top:120px;
+  padding:0 20px 80px;
+}
+
+.output-card{
+  background:white;
+  border-radius:24px;
+  padding:35px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.08);
+}
+
+.output-card h2{
+  color:#0f3b68;
+  margin-bottom:18px;
+}
+
+#result{
+  min-height:350px;
+  resize:vertical;
+  line-height:1.8;
+}
+
+.copy-btn{
+  margin-top:18px;
+  background:#16a34a;
+}
+
+.copy-btn:hover{
+  box-shadow:0 14px 30px rgba(22,163,74,0.22);
+}
+
+.status-message{
+  margin-top:14px;
+  font-size:14px;
+  color:#0f3b68;
+  font-weight:600;
+  min-height:20px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.15);
+  color:white;
+  padding:10px 18px;
+  border-radius:999px;
+  margin-bottom:20px;
+  backdrop-filter:blur(6px);
+  font-size:14px;
+}
+
+@media(max-width:950px){
+  .hero-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero h1{
+    font-size:42px;
+  }
+
+  .card{
+    transform:none;
+  }
+
+  .output-section{
+    margin-top:40px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <img class="logo" src="https://assets.zyrosite.com/vdR28j7XgM9CU328/ats-color-logo-8-rToABcJJPZRnl9z1.png" alt="Air Tech Solutions Logo">
+
+        <div class="badge">AI Commercial Marketing Tool</div>
+
+        <h1>LinkedIn Post Generator</h1>
+
+        <p>
+          Generate professional LinkedIn content for commercial property managers, multifamily operators, hotels, facilities teams, and commercial real estate audiences.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Create LinkedIn Content</h2>
+
+        <div class="form-group">
+          <label for="topic">Post Topic</label>
+          <input id="topic" value="Commercial soft washing and preventative maintenance">
+        </div>
+
+        <div class="form-group">
+          <label for="audience">Target Audience</label>
+          <select id="audience">
+            <option>Commercial Property Managers</option>
+            <option>Multifamily Operators</option>
+            <option>Hotel Operations Teams</option>
+            <option>HOA Managers</option>
+            <option>Facilities Directors</option>
+            <option>Commercial Building Owners</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="serviceFocus">Service Focus</label>
+          <select id="serviceFocus">
+            <option>Exterior Building Washing</option>
+            <option>Soft Washing</option>
+            <option>Surface Cleaning</option>
+            <option>Dryer Vent Cleaning</option>
+            <option>Commercial Window Cleaning</option>
+            <option>Roof Cleaning</option>
+            <option>Preventative Maintenance</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="tone">Tone</label>
+          <select id="tone">
+            <option>Professional and Educational</option>
+            <option>Commercial and Operational</option>
+            <option>Preventative Maintenance Focused</option>
+            <option>Industry Expert</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="cta">Call To Action</label>
+          <input id="cta" value="Schedule a property assessment with Air Tech Solutions">
+        </div>
+
+        <button id="generateBtn" onclick="generatePost()">Generate LinkedIn Post</button>
+        <div id="status" class="status-message"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="output-section">
+  <div class="container">
+    <div class="output-card">
+      <h2>Generated LinkedIn Post</h2>
+      <textarea id="result" placeholder="Your generated LinkedIn post will appear here..."></textarea>
+      <button class="copy-btn" onclick="copyPost()">Copy Post</button>
+      <div id="copyStatus" class="status-message"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+const WEBHOOK_URL = "https://airtechmass.app.n8n.cloud/webhook-test/ats-linkedin-post-generator";
+
+async function generatePost(){
+  const result = document.getElementById('result');
+  const status = document.getElementById('status');
+  const button = document.getElementById('generateBtn');
+
+  result.value = "Generating professional LinkedIn content...";
+  status.textContent = "Working...";
+  button.disabled = true;
+
+  try{
+    const response = await fetch(WEBHOOK_URL,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        topic:document.getElementById("topic").value,
+        audience:document.getElementById("audience").value,
+        serviceFocus:document.getElementById("serviceFocus").value,
+        tone:document.getElementById("tone").value,
+        cta:document.getElementById("cta").value
+      })
+    });
+
+    if(!response.ok){
+      throw new Error("Webhook returned an error.");
+    }
+
+    const data = await response.text();
+    result.value = data;
+    status.textContent = "Post generated successfully.";
+  }catch(error){
+    result.value = "Error generating post. Check webhook connection and make sure n8n is listening for the test event.";
+    status.textContent = "Generation failed.";
+  }finally{
+    button.disabled = false;
+  }
+}
+
+function copyPost(){
+  const result = document.getElementById("result");
+  const copyStatus = document.getElementById("copyStatus");
+
+  result.select();
+  result.setSelectionRange(0,99999);
+  navigator.clipboard.writeText(result.value).then(()=>{
+    copyStatus.textContent = "LinkedIn post copied.";
+  }).catch(()=>{
+    copyStatus.textContent = "Copy failed. Highlight the text and copy manually.";
+  });
+}
+</script>
+
+</body>
+</html>
