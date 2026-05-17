@@ -301,6 +301,30 @@
       resize: vertical;
     }
 
+    .section-divider {
+      grid-column: 1 / -1;
+      margin-top: 8px;
+      padding-top: 18px;
+      border-top: 1px solid var(--ats-line);
+    }
+
+    .section-divider h3 {
+      color: var(--ats-navy);
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
+    }
+
+    .section-divider p {
+      margin-top: 4px;
+      color: var(--ats-muted);
+      font-size: 0.86rem;
+    }
+
+    #bodyCopy {
+      min-height: 260px;
+      line-height: 1.65;
+    }
+
     input:hover,
     select:hover,
     textarea:hover {
@@ -349,7 +373,7 @@
 
     .actions {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-columns: minmax(0, 1fr) auto auto;
       gap: 12px;
       align-items: center;
       margin-top: 18px;
@@ -656,6 +680,21 @@
       text-decoration: none;
     }
 
+    .preview-signature {
+      display: grid;
+      gap: 2px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid #dbe7f1;
+      color: #30435d;
+      font-size: 14px;
+    }
+
+    .preview-signature strong {
+      color: #0a2f52;
+      font-size: 15px;
+    }
+
     .preview-footer {
       padding: 18px 24px;
       background: #f4f8fb;
@@ -785,7 +824,7 @@
           <div class="proof-item">Avatar-aware voice</div>
           <div class="proof-item">Targeted messaging</div>
           <div class="proof-item">Image-ready layout</div>
-          <div class="proof-item">Preview before sending</div>
+          <div class="proof-item">Editable copy + signature</div>
         </div>
       </div>
 
@@ -887,12 +926,59 @@
             <span class="hint">Example: Mention low-disruption scheduling for hotel entrances before peak travel season.</span>
           </div>
 
+          <div class="section-divider">
+            <h3>Editable message copy</h3>
+            <p>After generation, the AI-assisted body copy appears here so you can make small wording edits without touching HTML.</p>
+          </div>
+
+          <div class="form-group full">
+            <label for="bodyCopy">Email Body Text</label>
+            <textarea id="bodyCopy" name="bodyCopy" spellcheck="true" placeholder="Generate an email to fill this with editable body copy, or write your preferred message here before generating."></textarea>
+            <span class="hint">Keep blank to use the generated body. Lines beginning with • will become formatted bullet points in the email.</span>
+          </div>
+
+          <div class="section-divider">
+            <h3>Professional signature / email bottom</h3>
+            <p>Customize the bottom of the email with the sender's contact details before copying, downloading, or sending.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="signatureName">Sender Name</label>
+            <input id="signatureName" name="signatureName" type="text" autocomplete="name" placeholder="Example: Jamie Smith" />
+          </div>
+
+          <div class="form-group">
+            <label for="signatureTitle">Title</label>
+            <input id="signatureTitle" name="signatureTitle" type="text" autocomplete="organization-title" placeholder="Example: Commercial Maintenance Advisor" />
+          </div>
+
+          <div class="form-group">
+            <label for="signaturePhone">Phone</label>
+            <input id="signaturePhone" name="signaturePhone" type="tel" autocomplete="tel" placeholder="Example: (555) 123-4567" />
+          </div>
+
+          <div class="form-group">
+            <label for="signatureEmail">Email</label>
+            <input id="signatureEmail" name="signatureEmail" type="email" inputmode="email" autocomplete="email" value="info@airtechsolutions.com" />
+          </div>
+
+          <div class="form-group">
+            <label for="signatureCompany">Company</label>
+            <input id="signatureCompany" name="signatureCompany" type="text" autocomplete="organization" value="Air Tech Solutions" />
+          </div>
+
+          <div class="form-group">
+            <label for="footerNote">Footer Note</label>
+            <input id="footerNote" name="footerNote" type="text" value="Exterior cleaning and maintenance support" />
+          </div>
+
           <div class="form-group full">
             <div class="actions">
               <button id="generateBtn" class="button button-primary" type="submit">
                 <span class="spinner" aria-hidden="true"></span>
                 <span id="generateLabel">Generate Email Template</span>
               </button>
+              <button id="applyEditsBtn" class="button button-copy" type="button">Apply Body / Signature Edits</button>
               <button id="resetBtn" class="button button-secondary" type="button">Reset / Clear</button>
             </div>
             <div id="status" class="status-row" role="status" aria-live="polite"></div>
@@ -1072,6 +1158,7 @@
     const generateBtn = document.getElementById("generateBtn");
     const generateLabel = document.getElementById("generateLabel");
     const resetBtn = document.getElementById("resetBtn");
+    const applyEditsBtn = document.getElementById("applyEditsBtn");
     const copyHtmlBtn = document.getElementById("copyHtmlBtn");
     const copyTextBtn = document.getElementById("copyTextBtn");
     const downloadBtn = document.getElementById("downloadBtn");
@@ -1096,7 +1183,14 @@
       cta: document.getElementById("cta"),
       headline: document.getElementById("headline"),
       imageUpload: document.getElementById("imageUpload"),
-      notes: document.getElementById("notes")
+      notes: document.getElementById("notes"),
+      bodyCopy: document.getElementById("bodyCopy"),
+      signatureName: document.getElementById("signatureName"),
+      signatureTitle: document.getElementById("signatureTitle"),
+      signaturePhone: document.getElementById("signaturePhone"),
+      signatureEmail: document.getElementById("signatureEmail"),
+      signatureCompany: document.getElementById("signatureCompany"),
+      footerNote: document.getElementById("footerNote")
     };
 
     const defaults = {
@@ -1107,7 +1201,14 @@
       tone: "Professional and Educational",
       cta: "Schedule a property assessment",
       headline: "",
-      notes: ""
+      notes: "",
+      bodyCopy: "",
+      signatureName: "",
+      signatureTitle: "",
+      signaturePhone: "",
+      signatureEmail: "info@airtechsolutions.com",
+      signatureCompany: "Air Tech Solutions",
+      footerNote: "Exterior cleaning and maintenance support"
     };
 
     let uploadedImageDataUrl = "";
@@ -1172,38 +1273,8 @@
       return true;
     }
 
-    function buildEmailData() {
-      const avatar = avatarProfiles[fields.avatar.value];
-      const target = targetInsights[fields.target.value];
-      const goal = goalCopy[fields.goal.value];
-      const serviceBenefit = serviceBenefits[fields.serviceFocus.value];
-      const headline = getTrimmedValue(fields.headline) || goal.subject;
-      const notes = getTrimmedValue(fields.notes);
-
-      return {
-        avatar,
-        target,
-        goal,
-        headline,
-        notes,
-        audience: getTrimmedValue(fields.target),
-        serviceFocus: getTrimmedValue(fields.serviceFocus),
-        tone: getTrimmedValue(fields.tone),
-        cta: getTrimmedValue(fields.cta),
-        opener: toneOpeners[fields.tone.value],
-        serviceBenefit
-      };
-    }
-
-    function buildEmailText(data) {
-      const noteSentence = data.notes ? "\n\nAdditional context: " + data.notes : "";
-
-      return [
-        "Subject: " + data.goal.subject,
-        "Preheader: " + data.goal.preheader,
-        "",
-        data.headline,
-        "",
+    function buildDefaultBodyCopy(data) {
+      const bodyLines = [
         "Hi there,",
         "",
         data.avatar.greeting,
@@ -1217,23 +1288,164 @@
         "• " + data.target.detail,
         "• Clear communication before, during, and after the work",
         "",
-        data.goal.closing,
-        noteSentence,
+        data.goal.closing
+      ];
+
+      if (data.notes) {
+        bodyLines.push("", "Additional context: " + data.notes);
+      }
+
+      return bodyLines.join("\n");
+    }
+
+    function buildSignature(data) {
+      return {
+        name: getTrimmedValue(fields.signatureName) || data.avatar.signoff,
+        title: getTrimmedValue(fields.signatureTitle),
+        phone: getTrimmedValue(fields.signaturePhone),
+        email: getTrimmedValue(fields.signatureEmail),
+        company: getTrimmedValue(fields.signatureCompany) || "Air Tech Solutions",
+        footerNote: getTrimmedValue(fields.footerNote) || "Exterior cleaning and maintenance support"
+      };
+    }
+
+    function buildEmailData() {
+      const avatar = avatarProfiles[fields.avatar.value];
+      const target = targetInsights[fields.target.value];
+      const goal = goalCopy[fields.goal.value];
+      const serviceBenefit = serviceBenefits[fields.serviceFocus.value];
+      const headline = getTrimmedValue(fields.headline) || goal.subject;
+      const notes = getTrimmedValue(fields.notes);
+      const baseData = {
+        avatar,
+        target,
+        goal,
+        headline,
+        notes,
+        audience: getTrimmedValue(fields.target),
+        serviceFocus: getTrimmedValue(fields.serviceFocus),
+        tone: getTrimmedValue(fields.tone),
+        cta: getTrimmedValue(fields.cta),
+        opener: toneOpeners[fields.tone.value],
+        serviceBenefit
+      };
+
+      baseData.bodyCopy = getTrimmedValue(fields.bodyCopy) || buildDefaultBodyCopy(baseData);
+      baseData.signature = buildSignature(baseData);
+      return baseData;
+    }
+
+    function buildSignatureText(signature) {
+      return [
+        signature.name,
+        signature.title,
+        signature.company,
+        signature.phone,
+        signature.email
+      ].filter(Boolean).join("\n");
+    }
+
+    function buildEmailText(data) {
+      return [
+        "Subject: " + data.goal.subject,
+        "Preheader: " + data.goal.preheader,
+        "",
+        data.headline,
+        "",
+        data.bodyCopy,
         "",
         data.cta,
         "",
-        data.avatar.signoff
-      ].join("\n");
+        buildSignatureText(data.signature)
+      ].filter(function(section) {
+        return String(section).trim();
+      }).join("\n");
+    }
+
+
+    function buildBodyHtml(bodyCopy) {
+      const blocks = String(bodyCopy).split(/\n{2,}/).map(function(block) {
+        return block.trim();
+      }).filter(Boolean);
+
+      return blocks.map(function(block) {
+        const lines = block.split("\n").map(function(line) {
+          return line.trim();
+        }).filter(Boolean);
+        const isBulletList = lines.length > 0 && lines.every(function(line) {
+          return line.startsWith("•") || line.startsWith("- ");
+        });
+
+        if (isBulletList) {
+          return "              <ul style=\"margin:0 0 18px;padding-left:22px;color:#30435d;font-size:15px;line-height:1.65;\">\n" +
+            lines.map(function(line) {
+              return "                <li>" + escapeHtml(line.replace(/^(•|- )\s*/, "")) + "</li>";
+            }).join("\n") +
+            "\n              </ul>";
+        }
+
+        return "              <p style=\"margin:0 0 14px;color:#30435d;font-size:15px;line-height:1.65;\">" + escapeHtml(block).replace(/\n/g, "<br />") + "</p>";
+      }).join("\n");
+    }
+
+    function buildPreviewBodyHtml(bodyCopy) {
+      const blocks = String(bodyCopy).split(/\n{2,}/).map(function(block) {
+        return block.trim();
+      }).filter(Boolean);
+
+      return blocks.map(function(block) {
+        const lines = block.split("\n").map(function(line) {
+          return line.trim();
+        }).filter(Boolean);
+        const isBulletList = lines.length > 0 && lines.every(function(line) {
+          return line.startsWith("•") || line.startsWith("- ");
+        });
+
+        if (isBulletList) {
+          return "    <ul class=\"bullet-list\">" +
+            lines.map(function(line) {
+              return "<li>" + escapeHtml(line.replace(/^(•|- )\s*/, "")) + "</li>";
+            }).join("") +
+            "</ul>";
+        }
+
+        return "    <p>" + escapeHtml(block).replace(/\n/g, "<br />") + "</p>";
+      }).join("");
+    }
+
+    function buildSignatureHtml(signature) {
+      const contactParts = [];
+      if (signature.phone) {
+        contactParts.push("<a href=\"tel:" + escapeHtml(signature.phone.replace(/[^+0-9]/g, "")) + "\" style=\"color:#1769aa;text-decoration:none;font-weight:700;\">" + escapeHtml(signature.phone) + "</a>");
+      }
+      if (signature.email) {
+        contactParts.push("<a href=\"mailto:" + encodeURIComponent(signature.email) + "\" style=\"color:#1769aa;text-decoration:none;font-weight:700;\">" + escapeHtml(signature.email) + "</a>");
+      }
+
+      return "              <div style=\"margin-top:22px;padding-top:18px;border-top:1px solid #dbe7f1;color:#30435d;font-size:14px;line-height:1.6;\">\n" +
+        "                <div style=\"font-size:15px;font-weight:900;color:#0a2f52;\">" + escapeHtml(signature.name) + "</div>\n" +
+        (signature.title ? "                <div>" + escapeHtml(signature.title) + "</div>\n" : "") +
+        "                <div>" + escapeHtml(signature.company) + "</div>\n" +
+        (contactParts.length ? "                <div>" + contactParts.join(" <span style=\"color:#9aa8b8;\">•</span> ") + "</div>\n" : "") +
+        "              </div>";
+    }
+
+    function buildPreviewSignatureHtml(signature) {
+      return "    <div class=\"preview-signature\">" +
+        "<strong>" + escapeHtml(signature.name) + "</strong>" +
+        (signature.title ? "<span>" + escapeHtml(signature.title) + "</span>" : "") +
+        "<span>" + escapeHtml(signature.company) + "</span>" +
+        (signature.phone ? "<span>" + escapeHtml(signature.phone) + "</span>" : "") +
+        (signature.email ? "<span>" + escapeHtml(signature.email) + "</span>" : "") +
+        "</div>";
     }
 
     function buildEmailHtml(data) {
       const safeHeadline = escapeHtml(data.headline);
       const safeSubject = escapeHtml(data.goal.subject);
       const safePreheader = escapeHtml(data.goal.preheader);
-      const safeAudience = escapeHtml(data.audience.toLowerCase());
-      const safeService = escapeHtml(data.serviceFocus.toLowerCase());
       const safeCta = escapeHtml(data.cta);
-      const safeNote = data.notes ? "<p style=\"margin:0 0 16px;color:#30435d;font-size:15px;line-height:1.65;\"><strong>Additional context:</strong> " + escapeHtml(data.notes) + "</p>" : "";
+      const safeMailTo = data.signature.email || "info@airtechsolutions.com";
       const imageBlock = uploadedImageDataUrl ? "<img src=\"" + uploadedImageDataUrl + "\" alt=\"" + escapeHtml(uploadedImageAlt) + "\" style=\"display:block;width:100%;max-height:300px;object-fit:cover;border-bottom:1px solid #dbe7f1;\" />" : "";
 
       return "<!DOCTYPE html>\n" +
@@ -1260,25 +1472,14 @@
         "            <td style=\"padding:28px 24px;\">\n" +
         "              <p style=\"margin:0 0 10px;color:#65758b;font-size:13px;font-weight:700;text-transform:uppercase;\">" + safePreheader + "</p>\n" +
         "              <h1 style=\"margin:0 0 16px;color:#0a2f52;font-size:32px;line-height:1.08;letter-spacing:-0.035em;\">" + safeHeadline + "</h1>\n" +
-        "              <p style=\"margin:0 0 14px;color:#30435d;font-size:15px;line-height:1.65;\">Hi there,</p>\n" +
-        "              <p style=\"margin:0 0 14px;color:#30435d;font-size:15px;line-height:1.65;\">" + escapeHtml(data.avatar.greeting) + "</p>\n" +
-        "              <p style=\"margin:0 0 14px;color:#30435d;font-size:15px;line-height:1.65;\">" + escapeHtml(data.opener) + "</p>\n" +
-        "              <p style=\"margin:0 0 14px;color:#30435d;font-size:15px;line-height:1.65;\">For " + safeAudience + ", the challenge is often " + escapeHtml(data.target.pain) + ". With " + safeService + ", Air Tech Solutions can help " + escapeHtml(data.serviceBenefit) + " while helping your team " + escapeHtml(data.avatar.promise) + ".</p>\n" +
-        "              <p style=\"margin:18px 0 8px;color:#0a2f52;font-size:15px;font-weight:700;\">What this can support:</p>\n" +
-        "              <ul style=\"margin:0 0 18px;padding-left:22px;color:#30435d;font-size:15px;line-height:1.65;\">\n" +
-        "                <li>" + escapeHtml(data.target.benefit) + "</li>\n" +
-        "                <li>" + escapeHtml(data.target.detail) + "</li>\n" +
-        "                <li>Clear communication before, during, and after the work</li>\n" +
-        "              </ul>\n" +
-        "              <p style=\"margin:0 0 16px;color:#30435d;font-size:15px;line-height:1.65;\">" + escapeHtml(data.goal.closing) + "</p>\n" +
-        "              " + safeNote + "\n" +
-        "              <a href=\"mailto:info@airtechsolutions.com?subject=" + encodeURIComponent(data.goal.subject) + "\" style=\"display:inline-block;margin-top:6px;padding:14px 18px;color:#ffffff;background:#1769aa;border-radius:12px;font-size:15px;font-weight:900;text-decoration:none;\">" + safeCta + "</a>\n" +
-        "              <p style=\"margin:22px 0 0;color:#30435d;font-size:15px;line-height:1.65;\">" + escapeHtml(data.avatar.signoff) + "</p>\n" +
+        buildBodyHtml(data.bodyCopy) + "\n" +
+        "              <a href=\"mailto:" + encodeURIComponent(safeMailTo) + "?subject=" + encodeURIComponent(data.goal.subject) + "\" style=\"display:inline-block;margin-top:6px;padding:14px 18px;color:#ffffff;background:#1769aa;border-radius:12px;font-size:15px;font-weight:900;text-decoration:none;\">" + safeCta + "</a>\n" +
+        buildSignatureHtml(data.signature) + "\n" +
         "            </td>\n" +
         "          </tr>\n" +
         "          <tr>\n" +
         "            <td style=\"padding:18px 24px;background:#f4f8fb;border-top:1px solid #dbe7f1;color:#65758b;font-size:12px;line-height:1.6;\">\n" +
-        "              Air Tech Solutions • Exterior cleaning and maintenance support<br />Review all AI-assisted content for accuracy before sending.\n" +
+        "              " + escapeHtml(data.signature.company) + " • " + escapeHtml(data.signature.footerNote) + "<br />Review all AI-assisted content for accuracy before sending.\n" +
         "            </td>\n" +
         "          </tr>\n" +
         "        </table>\n" +
@@ -1300,21 +1501,11 @@
         "  <div class=\"preview-body\">" +
         "    <p class=\"preheader\">" + escapeHtml(data.goal.preheader) + "</p>" +
         "    <h3>" + escapeHtml(data.headline) + "</h3>" +
-        "    <p>Hi there,</p>" +
-        "    <p>" + escapeHtml(data.avatar.greeting) + "</p>" +
-        "    <p>" + escapeHtml(data.opener) + "</p>" +
-        "    <p>For " + escapeHtml(data.audience.toLowerCase()) + ", the challenge is often " + escapeHtml(data.target.pain) + ". With " + escapeHtml(data.serviceFocus.toLowerCase()) + ", Air Tech Solutions can help " + escapeHtml(data.serviceBenefit) + " while helping your team " + escapeHtml(data.avatar.promise) + ".</p>" +
-        "    <ul class=\"bullet-list\">" +
-        "      <li>" + escapeHtml(data.target.benefit) + "</li>" +
-        "      <li>" + escapeHtml(data.target.detail) + "</li>" +
-        "      <li>Clear communication before, during, and after the work</li>" +
-        "    </ul>" +
-        "    <p>" + escapeHtml(data.goal.closing) + "</p>" +
-        (data.notes ? "    <p><strong>Additional context:</strong> " + escapeHtml(data.notes) + "</p>" : "") +
-        "    <a class=\"preview-cta\" href=\"mailto:info@airtechsolutions.com\">" + escapeHtml(data.cta) + "</a>" +
-        "    <p style=\"margin-top:22px;\">" + escapeHtml(data.avatar.signoff) + "</p>" +
+        buildPreviewBodyHtml(data.bodyCopy) +
+        "    <a class=\"preview-cta\" href=\"mailto:" + escapeHtml(data.signature.email || "info@airtechsolutions.com") + "\">" + escapeHtml(data.cta) + "</a>" +
+        buildPreviewSignatureHtml(data.signature) +
         "  </div>" +
-        "  <div class=\"preview-footer\">Air Tech Solutions • Exterior cleaning and maintenance support<br />Review all AI-assisted content for accuracy before sending.</div>" +
+        "  <div class=\"preview-footer\">" + escapeHtml(data.signature.company) + " • " + escapeHtml(data.signature.footerNote) + "<br />Review all AI-assisted content for accuracy before sending.</div>" +
         "</div>";
     }
 
@@ -1331,12 +1522,27 @@
 
       window.setTimeout(function() {
         const data = buildEmailData();
+        fields.bodyCopy.value = data.bodyCopy;
         generatedEmail.value = buildEmailHtml(data);
         renderPreviewFromData(data);
         updateCharacterCounter();
-        setStatus("Email template generated successfully. Review the preview before sending.", "success");
+        setStatus("Email template generated successfully. Review the editable body copy, signature, and preview before sending.", "success");
         setLoading(false);
       }, 250);
+    }
+
+    function applyBodyAndSignatureEdits() {
+      if (!validateForm()) {
+        return;
+      }
+
+      const data = buildEmailData();
+      fields.bodyCopy.value = data.bodyCopy;
+      generatedEmail.value = buildEmailHtml(data);
+      renderPreviewFromData(data);
+      updateCharacterCounter();
+      setStatus("Body copy and signature edits applied to the HTML and preview.", "success");
+      setCopyStatus("", "");
     }
 
     async function copyValueToClipboard(value, successMessage) {
@@ -1442,6 +1648,13 @@
       fields.cta.value = defaults.cta;
       fields.headline.value = defaults.headline;
       fields.notes.value = defaults.notes;
+      fields.bodyCopy.value = defaults.bodyCopy;
+      fields.signatureName.value = defaults.signatureName;
+      fields.signatureTitle.value = defaults.signatureTitle;
+      fields.signaturePhone.value = defaults.signaturePhone;
+      fields.signatureEmail.value = defaults.signatureEmail;
+      fields.signatureCompany.value = defaults.signatureCompany;
+      fields.footerNote.value = defaults.footerNote;
       fields.imageUpload.value = "";
       recipientEmail.value = "";
       uploadedImageDataUrl = "";
@@ -1508,6 +1721,7 @@
     copyTextBtn.addEventListener("click", copyEmailText);
     downloadBtn.addEventListener("click", downloadEmailHtml);
     sendEmailBtn.addEventListener("click", sendGeneratedEmail);
+    applyEditsBtn.addEventListener("click", applyBodyAndSignatureEdits);
     resetBtn.addEventListener("click", resetFormAndOutput);
     clearOutputBtn.addEventListener("click", clearOutput);
     generatedEmail.addEventListener("input", updatePreviewFromHtml);
