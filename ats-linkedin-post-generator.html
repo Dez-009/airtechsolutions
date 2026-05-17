@@ -1,359 +1,857 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Air Tech Solutions | LinkedIn Post Generator</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-body{
-  font-family:'Inter',sans-serif;
-  background:#f4f8fb;
-  color:#1e293b;
-  min-height:100vh;
-}
-
-.hero{
-  background:linear-gradient(135deg,#0f3b68,#1d5d96);
-  padding:60px 20px 120px;
-  position:relative;
-  overflow:hidden;
-}
-
-.hero::before{
-  content:'';
-  position:absolute;
-  width:700px;
-  height:700px;
-  background:rgba(255,255,255,0.05);
-  border-radius:50%;
-  top:-350px;
-  right:-250px;
-}
-
-.container{
-  max-width:1200px;
-  margin:auto;
-  position:relative;
-  z-index:1;
-}
-
-.logo{
-  width:220px;
-  margin-bottom:30px;
-}
-
-.hero-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:50px;
-  align-items:center;
-}
-
-.hero h1{
-  color:white;
-  font-size:58px;
-  line-height:1.05;
-  margin-bottom:20px;
-  font-weight:800;
-}
-
-.hero p{
-  color:#dbeafe;
-  font-size:18px;
-  line-height:1.7;
-  max-width:580px;
-}
-
-.card{
-  background:white;
-  border-radius:24px;
-  padding:35px;
-  box-shadow:0 20px 60px rgba(0,0,0,0.12);
-  transform:translateY(70px);
-}
-
-.card h2{
-  color:#0f3b68;
-  margin-bottom:25px;
-  font-size:28px;
-}
-
-.form-group{
-  margin-bottom:18px;
-}
-
-label{
-  display:block;
-  margin-bottom:8px;
-  font-size:14px;
-  font-weight:600;
-  color:#334155;
-}
-
-input,
-select,
-textarea{
-  width:100%;
-  border:1px solid #dbe4ee;
-  border-radius:14px;
-  padding:14px 16px;
-  font-size:15px;
-  font-family:'Inter',sans-serif;
-  transition:0.25s ease;
-  background:white;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-  outline:none;
-  border-color:#1d5d96;
-  box-shadow:0 0 0 4px rgba(29,93,150,0.12);
-}
-
-button{
-  width:100%;
-  border:none;
-  background:linear-gradient(135deg,#0f3b68,#1d5d96);
-  color:white;
-  padding:16px;
-  border-radius:14px;
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
-  transition:0.25s ease;
-}
-
-button:hover{
-  transform:translateY(-2px);
-  box-shadow:0 14px 30px rgba(15,59,104,0.25);
-}
-
-button:disabled{
-  opacity:.65;
-  cursor:not-allowed;
-  transform:none;
-}
-
-.output-section{
-  margin-top:120px;
-  padding:0 20px 80px;
-}
-
-.output-card{
-  background:white;
-  border-radius:24px;
-  padding:35px;
-  box-shadow:0 12px 40px rgba(0,0,0,0.08);
-}
-
-.output-card h2{
-  color:#0f3b68;
-  margin-bottom:18px;
-}
-
-#result{
-  min-height:350px;
-  resize:vertical;
-  line-height:1.8;
-}
-
-.copy-btn{
-  margin-top:18px;
-  background:#16a34a;
-}
-
-.copy-btn:hover{
-  box-shadow:0 14px 30px rgba(22,163,74,0.22);
-}
-
-.status-message{
-  margin-top:14px;
-  font-size:14px;
-  color:#0f3b68;
-  font-weight:600;
-  min-height:20px;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  background:rgba(255,255,255,0.1);
-  border:1px solid rgba(255,255,255,0.15);
-  color:white;
-  padding:10px 18px;
-  border-radius:999px;
-  margin-bottom:20px;
-  backdrop-filter:blur(6px);
-  font-size:14px;
-}
-
-@media(max-width:950px){
-  .hero-grid{
-    grid-template-columns:1fr;
-  }
-
-  .hero h1{
-    font-size:42px;
-  }
-
-  .card{
-    transform:none;
-  }
-
-  .output-section{
-    margin-top:40px;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<section class="hero">
-  <div class="container">
-    <div class="hero-grid">
-      <div>
-        <img class="logo" src="https://assets.zyrosite.com/vdR28j7XgM9CU328/ats-color-logo-8-rToABcJJPZRnl9z1.png" alt="Air Tech Solutions Logo">
-
-        <div class="badge">AI Commercial Marketing Tool</div>
-
-        <h1>LinkedIn Post Generator</h1>
-
-        <p>
-          Generate professional LinkedIn content for commercial property managers, multifamily operators, hotels, facilities teams, and commercial real estate audiences.
-        </p>
-      </div>
-
-      <div class="card">
-        <h2>Create LinkedIn Content</h2>
-
-        <div class="form-group">
-          <label for="topic">Post Topic</label>
-          <input id="topic" value="Commercial soft washing and preventative maintenance">
-        </div>
-
-        <div class="form-group">
-          <label for="audience">Target Audience</label>
-          <select id="audience">
-            <option>Commercial Property Managers</option>
-            <option>Multifamily Operators</option>
-            <option>Hotel Operations Teams</option>
-            <option>HOA Managers</option>
-            <option>Facilities Directors</option>
-            <option>Commercial Building Owners</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="serviceFocus">Service Focus</label>
-          <select id="serviceFocus">
-            <option>Exterior Building Washing</option>
-            <option>Soft Washing</option>
-            <option>Surface Cleaning</option>
-            <option>Dryer Vent Cleaning</option>
-            <option>Commercial Window Cleaning</option>
-            <option>Roof Cleaning</option>
-            <option>Preventative Maintenance</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="tone">Tone</label>
-          <select id="tone">
-            <option>Professional and Educational</option>
-            <option>Commercial and Operational</option>
-            <option>Preventative Maintenance Focused</option>
-            <option>Industry Expert</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="cta">Call To Action</label>
-          <input id="cta" value="Schedule a property assessment with Air Tech Solutions">
-        </div>
-
-        <button id="generateBtn" onclick="generatePost()">Generate LinkedIn Post</button>
-        <div id="status" class="status-message"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="output-section">
-  <div class="container">
-    <div class="output-card">
-      <h2>Generated LinkedIn Post</h2>
-      <textarea id="result" placeholder="Your generated LinkedIn post will appear here..."></textarea>
-      <button class="copy-btn" onclick="copyPost()">Copy Post</button>
-      <div id="copyStatus" class="status-message"></div>
-    </div>
-  </div>
-</section>
-
-<script>
-const WEBHOOK_URL = "https://airtechmass.app.n8n.cloud/webhook-test/ats-linkedin-post-generator";
-
-async function generatePost(){
-  const result = document.getElementById('result');
-  const status = document.getElementById('status');
-  const button = document.getElementById('generateBtn');
-
-  result.value = "Generating professional LinkedIn content...";
-  status.textContent = "Working...";
-  button.disabled = true;
-
-  try{
-    const response = await fetch(WEBHOOK_URL,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        topic:document.getElementById("topic").value,
-        audience:document.getElementById("audience").value,
-        serviceFocus:document.getElementById("serviceFocus").value,
-        tone:document.getElementById("tone").value,
-        cta:document.getElementById("cta").value
-      })
-    });
-
-    if(!response.ok){
-      throw new Error("Webhook returned an error.");
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Air Tech Solutions | LinkedIn Post Generator</title>
+  <style>
+    :root {
+      --ats-navy: #0a2f52;
+      --ats-blue: #1769aa;
+      --ats-blue-light: #e8f3fb;
+      --ats-sky: #3b9bd8;
+      --ats-green: #16a34a;
+      --ats-green-dark: #10843b;
+      --ats-white: #ffffff;
+      --ats-ink: #172033;
+      --ats-muted: #65758b;
+      --ats-line: #dbe7f1;
+      --ats-soft: #f4f8fb;
+      --ats-warning: #b42318;
+      --shadow-card: 0 22px 70px rgba(10, 47, 82, 0.14);
+      --shadow-soft: 0 12px 34px rgba(10, 47, 82, 0.09);
+      --radius-xl: 28px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
     }
 
-    const data = await response.text();
-    result.value = data;
-    status.textContent = "Post generated successfully.";
-  }catch(error){
-    result.value = "Error generating post. Check webhook connection and make sure n8n is listening for the test event.";
-    status.textContent = "Generation failed.";
-  }finally{
-    button.disabled = false;
-  }
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-function copyPost(){
-  const result = document.getElementById("result");
-  const copyStatus = document.getElementById("copyStatus");
+    html {
+      scroll-behavior: smooth;
+    }
 
-  result.select();
-  result.setSelectionRange(0,99999);
-  navigator.clipboard.writeText(result.value).then(()=>{
-    copyStatus.textContent = "LinkedIn post copied.";
-  }).catch(()=>{
-    copyStatus.textContent = "Copy failed. Highlight the text and copy manually.";
-  });
-}
-</script>
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(59, 155, 216, 0.16), transparent 34rem),
+        linear-gradient(180deg, #f8fbfe 0%, #eef5f9 100%);
+      color: var(--ats-ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
 
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+    }
+
+    .page-shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 48px;
+    }
+
+    .brand-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .logo-card {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 260px;
+      padding: 12px 18px;
+      background: var(--ats-white);
+      border: 1px solid rgba(219, 231, 241, 0.9);
+      border-radius: 999px;
+      box-shadow: var(--shadow-soft);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .logo-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 44px rgba(10, 47, 82, 0.13);
+    }
+
+    .logo-card img {
+      display: block;
+      width: 210px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .tool-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      background: rgba(22, 105, 170, 0.1);
+      border: 1px solid rgba(23, 105, 170, 0.16);
+      border-radius: 999px;
+      color: var(--ats-navy);
+      font-size: 0.88rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .tool-badge::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      background: var(--ats-green);
+      border-radius: 999px;
+      box-shadow: 0 0 0 5px rgba(22, 163, 74, 0.12);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(340px, 1.18fr);
+      gap: 28px;
+      align-items: stretch;
+      padding: 34px;
+      background:
+        linear-gradient(135deg, rgba(10, 47, 82, 0.98), rgba(23, 105, 170, 0.94)),
+        var(--ats-navy);
+      border-radius: 34px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 420px;
+      height: 420px;
+      top: -210px;
+      right: -130px;
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .hero::after {
+      width: 230px;
+      height: 230px;
+      bottom: -120px;
+      left: 25%;
+      background: rgba(22, 163, 74, 0.12);
+    }
+
+    .intro-panel,
+    .form-panel {
+      position: relative;
+      z-index: 1;
+    }
+
+    .intro-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 26px;
+      min-height: 100%;
+      padding: 8px 0;
+      color: var(--ats-white);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.09);
+      color: #d9edff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 640px;
+      font-size: clamp(2.35rem, 5vw, 4.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+    }
+
+    .intro-panel p {
+      max-width: 580px;
+      margin-top: 22px;
+      color: #dbeafe;
+      font-size: 1.05rem;
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .proof-item {
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 18px;
+      color: #eef8ff;
+      font-size: 0.92rem;
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .proof-item:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .form-panel,
+    .output-panel {
+      background: rgba(255, 255, 255, 0.98);
+      border: 1px solid rgba(255, 255, 255, 0.74);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 18px 55px rgba(6, 31, 55, 0.16);
+    }
+
+    .form-panel {
+      padding: 28px;
+    }
+
+    .panel-heading {
+      margin-bottom: 22px;
+    }
+
+    .panel-heading h2 {
+      color: var(--ats-navy);
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+    }
+
+    .panel-heading p {
+      margin-top: 8px;
+      color: var(--ats-muted);
+      font-size: 0.96rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      color: #30435d;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .required {
+      color: var(--ats-blue);
+      font-weight: 900;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      color: var(--ats-ink);
+      background: #fbfdff;
+      border: 1px solid var(--ats-line);
+      border-radius: var(--radius-md);
+      outline: none;
+      padding: 13px 14px;
+      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    textarea {
+      min-height: 106px;
+      resize: vertical;
+    }
+
+    input:hover,
+    select:hover,
+    textarea:hover {
+      border-color: #b9d2e7;
+      background: var(--ats-white);
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      background: var(--ats-white);
+      border-color: var(--ats-blue);
+      box-shadow: 0 0 0 4px rgba(23, 105, 170, 0.13);
+    }
+
+    .hint {
+      color: var(--ats-muted);
+      font-size: 0.8rem;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      margin-top: 18px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 13px 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 900;
+      text-decoration: none;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button:disabled {
+      cursor: not-allowed;
+      opacity: 0.68;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .button-primary {
+      color: var(--ats-white);
+      background: linear-gradient(135deg, var(--ats-navy), var(--ats-blue));
+      box-shadow: 0 14px 28px rgba(10, 47, 82, 0.2);
+    }
+
+    .button-primary:hover:not(:disabled) {
+      box-shadow: 0 18px 36px rgba(10, 47, 82, 0.26);
+    }
+
+    .button-secondary {
+      color: var(--ats-navy);
+      background: var(--ats-white);
+      border: 1px solid var(--ats-line);
+    }
+
+    .button-secondary:hover:not(:disabled) {
+      border-color: #b9d2e7;
+      box-shadow: 0 12px 26px rgba(10, 47, 82, 0.09);
+    }
+
+    .button-copy {
+      color: var(--ats-white);
+      background: linear-gradient(135deg, var(--ats-green-dark), var(--ats-green));
+      box-shadow: 0 14px 28px rgba(22, 163, 74, 0.18);
+    }
+
+    .button-copy:hover:not(:disabled) {
+      box-shadow: 0 18px 36px rgba(22, 163, 74, 0.24);
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      min-height: 26px;
+      margin-top: 14px;
+      color: var(--ats-muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .status-row.error {
+      color: var(--ats-warning);
+    }
+
+    .status-row.success {
+      color: var(--ats-green-dark);
+    }
+
+    .spinner {
+      display: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.55);
+      border-top-color: var(--ats-white);
+      border-radius: 999px;
+      animation: spin 800ms linear infinite;
+    }
+
+    .button.loading .spinner {
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .output-panel {
+      margin-top: 28px;
+      padding: 28px;
+    }
+
+    .output-topline {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .output-topline h2 {
+      color: var(--ats-navy);
+      font-size: clamp(1.35rem, 3vw, 1.8rem);
+      letter-spacing: -0.02em;
+    }
+
+    .counter-pill {
+      flex: 0 0 auto;
+      padding: 8px 12px;
+      color: var(--ats-navy);
+      background: var(--ats-blue-light);
+      border: 1px solid rgba(23, 105, 170, 0.12);
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    #result {
+      min-height: 360px;
+      line-height: 1.72;
+      background: #fbfdff;
+    }
+
+    .output-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .output-actions .button {
+      min-width: 155px;
+    }
+
+    .screen-reader-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-panel {
+        min-height: auto;
+      }
+
+      .proof-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell {
+        width: min(100% - 22px, 1180px);
+        padding-top: 18px;
+      }
+
+      .brand-header {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 16px;
+      }
+
+      .hero {
+        padding: 20px;
+        border-radius: 24px;
+      }
+
+      .form-panel,
+      .output-panel {
+        padding: 20px;
+        border-radius: 22px;
+      }
+
+      .form-grid,
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .proof-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .output-topline {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .counter-pill {
+        width: fit-content;
+      }
+
+      .output-actions .button {
+        flex: 1 1 100%;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .logo-card {
+        width: 100%;
+        max-width: none;
+      }
+
+      .tool-badge {
+        white-space: normal;
+      }
+
+      .proof-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="brand-header" aria-label="Air Tech Solutions LinkedIn tool header">
+      <a class="logo-card" href="#generator" aria-label="Air Tech Solutions LinkedIn Post Generator">
+        <img src="https://assets.zyrosite.com/vdR28j7XgM9CU328/ats-color-logo-8-rToABcJJPZRnl9z1.png" alt="Air Tech Solutions logo" />
+      </a>
+      <div class="tool-badge">Internal LinkedIn Content Tool</div>
+    </header>
+
+    <section class="hero" id="generator">
+      <div class="intro-panel">
+        <div>
+          <span class="eyebrow">Commercial exterior maintenance content</span>
+          <h1>LinkedIn Post Generator</h1>
+          <p>
+            Create practical, professional posts for property managers, facilities directors, hotel operations teams, HOA managers, and commercial building owners.
+          </p>
+        </div>
+
+        <div class="proof-grid" aria-label="Content guidance">
+          <div class="proof-item">Operationally aware</div>
+          <div class="proof-item">Low-hype messaging</div>
+          <div class="proof-item">Maintenance focused</div>
+          <div class="proof-item">Human approval first</div>
+        </div>
+      </div>
+
+      <section class="form-panel" aria-labelledby="form-title">
+        <div class="panel-heading">
+          <h2 id="form-title">Build a post brief</h2>
+          <p>Enter the topic and audience details. The protected n8n workflow handles AI generation.</p>
+        </div>
+
+        <form id="postForm" class="form-grid" novalidate>
+          <div class="form-group full">
+            <label for="topic">Post Topic <span class="required" aria-hidden="true">*</span></label>
+            <input id="topic" name="topic" type="text" autocomplete="off" required value="Commercial soft washing and preventative maintenance" />
+          </div>
+
+          <div class="form-group">
+            <label for="audience">Target Audience <span class="required" aria-hidden="true">*</span></label>
+            <select id="audience" name="audience" required>
+              <option>Commercial Property Managers</option>
+              <option>Multifamily Operators</option>
+              <option>Hotel Operations Teams</option>
+              <option>HOA Managers</option>
+              <option>Facilities Directors</option>
+              <option>Commercial Building Owners</option>
+              <option>Residential Homeowners</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="serviceFocus">Service Focus <span class="required" aria-hidden="true">*</span></label>
+            <select id="serviceFocus" name="serviceFocus" required>
+              <option>Exterior Building Washing</option>
+              <option>Soft Washing</option>
+              <option>Lucid Bot Soft Washing</option>
+              <option>Surface Cleaning</option>
+              <option>Dryer Vent Cleaning</option>
+              <option>Commercial Window Cleaning</option>
+              <option>Roof Cleaning</option>
+              <option>Gutter Cleaning</option>
+              <option>Preventative Maintenance</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tone">Tone <span class="required" aria-hidden="true">*</span></label>
+            <select id="tone" name="tone" required>
+              <option>Professional and Educational</option>
+              <option>Commercial and Operational</option>
+              <option>Preventative Maintenance Focused</option>
+              <option>Industry Expert</option>
+              <option>Simple and Direct</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cta">CTA <span class="required" aria-hidden="true">*</span></label>
+            <input id="cta" name="cta" type="text" autocomplete="off" required value="Schedule a property assessment with Air Tech Solutions" />
+          </div>
+
+          <div class="form-group full">
+            <label for="notes">Optional Notes</label>
+            <textarea id="notes" name="notes" placeholder="Add property type, seasonality, operational context, offer details, or preferred wording."></textarea>
+            <span class="hint">Example: Emphasize low-disruption scheduling for hotels before peak travel season.</span>
+          </div>
+
+          <div class="form-group full">
+            <div class="actions">
+              <button id="generateBtn" class="button button-primary" type="submit">
+                <span class="spinner" aria-hidden="true"></span>
+                <span id="generateLabel">Generate LinkedIn Post</span>
+              </button>
+              <button id="resetBtn" class="button button-secondary" type="button">Reset / Clear</button>
+            </div>
+            <div id="status" class="status-row" role="status" aria-live="polite"></div>
+          </div>
+        </form>
+      </section>
+    </section>
+
+    <section class="output-panel" aria-labelledby="output-title">
+      <div class="output-topline">
+        <div class="panel-heading">
+          <h2 id="output-title">Generated LinkedIn Post</h2>
+          <p>Review and edit before publishing. Keep public posting under human approval.</p>
+        </div>
+        <div id="characterCounter" class="counter-pill">0 characters</div>
+      </div>
+
+      <label class="screen-reader-only" for="result">Generated LinkedIn post output</label>
+      <textarea id="result" placeholder="Your generated LinkedIn post will appear here after the n8n workflow responds."></textarea>
+
+      <div class="output-actions">
+        <button id="copyBtn" class="button button-copy" type="button">Copy to Clipboard</button>
+        <button id="clearOutputBtn" class="button button-secondary" type="button">Clear Output</button>
+      </div>
+      <div id="copyStatus" class="status-row" role="status" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script>
+    const WEBHOOK_URL = "https://airtechmass.app.n8n.cloud/webhook-test/ats-linkedin-post-generator";
+
+    const postForm = document.getElementById("postForm");
+    const generateBtn = document.getElementById("generateBtn");
+    const generateLabel = document.getElementById("generateLabel");
+    const resetBtn = document.getElementById("resetBtn");
+    const copyBtn = document.getElementById("copyBtn");
+    const clearOutputBtn = document.getElementById("clearOutputBtn");
+    const statusMessage = document.getElementById("status");
+    const copyStatus = document.getElementById("copyStatus");
+    const result = document.getElementById("result");
+    const characterCounter = document.getElementById("characterCounter");
+
+    const fields = {
+      topic: document.getElementById("topic"),
+      audience: document.getElementById("audience"),
+      serviceFocus: document.getElementById("serviceFocus"),
+      tone: document.getElementById("tone"),
+      cta: document.getElementById("cta"),
+      notes: document.getElementById("notes")
+    };
+
+    const defaults = {
+      topic: "Commercial soft washing and preventative maintenance",
+      audience: "Commercial Property Managers",
+      serviceFocus: "Exterior Building Washing",
+      tone: "Professional and Educational",
+      cta: "Schedule a property assessment with Air Tech Solutions",
+      notes: ""
+    };
+
+    function setStatus(message, type) {
+      statusMessage.textContent = message;
+      statusMessage.className = "status-row";
+
+      if (type) {
+        statusMessage.classList.add(type);
+      }
+    }
+
+    function setCopyStatus(message, type) {
+      copyStatus.textContent = message;
+      copyStatus.className = "status-row";
+
+      if (type) {
+        copyStatus.classList.add(type);
+      }
+    }
+
+    function updateCharacterCounter() {
+      const count = result.value.length;
+      characterCounter.textContent = count === 1 ? "1 character" : count.toLocaleString() + " characters";
+    }
+
+    function setLoading(isLoading) {
+      generateBtn.disabled = isLoading;
+      resetBtn.disabled = isLoading;
+      generateBtn.classList.toggle("loading", isLoading);
+      generateLabel.textContent = isLoading ? "Generating..." : "Generate LinkedIn Post";
+    }
+
+    function getTrimmedValue(field) {
+      return field.value.trim();
+    }
+
+    function validateForm() {
+      const requiredFields = [fields.topic, fields.audience, fields.serviceFocus, fields.tone, fields.cta];
+      const missingField = requiredFields.find(function(field) {
+        return !getTrimmedValue(field);
+      });
+
+      if (missingField) {
+        missingField.focus();
+        setStatus("Please complete all required fields before generating a post.", "error");
+        return false;
+      }
+
+      return true;
+    }
+
+    async function generatePost(event) {
+      event.preventDefault();
+      setCopyStatus("", "");
+
+      if (!validateForm()) {
+        return;
+      }
+
+      const payload = {
+        topic: getTrimmedValue(fields.topic),
+        audience: getTrimmedValue(fields.audience),
+        serviceFocus: getTrimmedValue(fields.serviceFocus),
+        tone: getTrimmedValue(fields.tone),
+        cta: getTrimmedValue(fields.cta),
+        notes: getTrimmedValue(fields.notes)
+      };
+
+      result.value = "Generating a professional LinkedIn post for Air Tech Solutions...";
+      updateCharacterCounter();
+      setStatus("Sending brief to n8n and waiting for the generated post...", "");
+      setLoading(true);
+
+      try {
+        const response = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          throw new Error("Webhook returned status " + response.status + ".");
+        }
+
+        const data = await response.text();
+        result.value = data.trim() || "The webhook responded, but no post text was returned.";
+        updateCharacterCounter();
+        setStatus("Post generated successfully. Review before publishing.", "success");
+      } catch (error) {
+        result.value = "";
+        updateCharacterCounter();
+        setStatus("Generation failed. Confirm the n8n test webhook is listening, then try again.", "error");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    async function copyPost() {
+      const text = result.value.trim();
+
+      if (!text) {
+        setCopyStatus("There is no generated post to copy yet.", "error");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(text);
+        setCopyStatus("LinkedIn post copied to clipboard.", "success");
+      } catch (error) {
+        result.focus();
+        result.select();
+        setCopyStatus("Clipboard access was blocked. The post text is selected so you can copy it manually.", "error");
+      }
+    }
+
+    function resetFormAndOutput() {
+      fields.topic.value = defaults.topic;
+      fields.audience.value = defaults.audience;
+      fields.serviceFocus.value = defaults.serviceFocus;
+      fields.tone.value = defaults.tone;
+      fields.cta.value = defaults.cta;
+      fields.notes.value = defaults.notes;
+      result.value = "";
+      updateCharacterCounter();
+      setStatus("Form reset and output cleared.", "success");
+      setCopyStatus("", "");
+      fields.topic.focus();
+    }
+
+    function clearOutput() {
+      result.value = "";
+      updateCharacterCounter();
+      setCopyStatus("Output cleared.", "success");
+    }
+
+    postForm.addEventListener("submit", generatePost);
+    copyBtn.addEventListener("click", copyPost);
+    resetBtn.addEventListener("click", resetFormAndOutput);
+    clearOutputBtn.addEventListener("click", clearOutput);
+    result.addEventListener("input", updateCharacterCounter);
+    updateCharacterCounter();
+  </script>
 </body>
 </html>
