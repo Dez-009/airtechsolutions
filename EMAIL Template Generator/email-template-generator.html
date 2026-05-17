@@ -507,6 +507,32 @@
       min-width: 150px;
     }
 
+    .send-panel {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) auto;
+      gap: 12px;
+      align-items: end;
+      margin-top: 18px;
+      padding: 16px;
+      background: var(--ats-soft);
+      border: 1px solid var(--ats-line);
+      border-radius: var(--radius-lg);
+    }
+
+    .send-panel .form-group {
+      gap: 7px;
+    }
+
+    .send-panel .button {
+      min-width: 160px;
+    }
+
+    .send-note {
+      grid-column: 1 / -1;
+      color: var(--ats-muted);
+      font-size: 0.8rem;
+    }
+
     .email-frame {
       overflow: hidden;
       background: #eef5f9;
@@ -710,6 +736,14 @@
       .output-actions .button {
         flex: 1 1 100%;
       }
+
+      .send-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .send-panel .button {
+        width: 100%;
+      }
     }
 
     @media (max-width: 430px) {
@@ -884,6 +918,14 @@
           <button id="downloadBtn" class="button button-secondary" type="button">Download HTML</button>
           <button id="clearOutputBtn" class="button button-secondary" type="button">Clear Output</button>
         </div>
+        <div class="send-panel" aria-label="Send generated email template">
+          <div class="form-group">
+            <label for="recipientEmail">Send Template To</label>
+            <input id="recipientEmail" name="recipientEmail" type="email" inputmode="email" autocomplete="email" placeholder="recipient@example.com" />
+          </div>
+          <button id="sendEmailBtn" class="button button-primary" type="button">Send Email</button>
+          <p class="send-note">Opens your default email app with the generated subject and plain-text version of this template. Copy the HTML separately if your email platform supports pasting HTML.</p>
+        </div>
         <div id="copyStatus" class="status-row" role="status" aria-live="polite"></div>
       </section>
 
@@ -1034,6 +1076,8 @@
     const copyTextBtn = document.getElementById("copyTextBtn");
     const downloadBtn = document.getElementById("downloadBtn");
     const clearOutputBtn = document.getElementById("clearOutputBtn");
+    const sendEmailBtn = document.getElementById("sendEmailBtn");
+    const recipientEmail = document.getElementById("recipientEmail");
     const statusMessage = document.getElementById("status");
     const copyStatus = document.getElementById("copyStatus");
     const generatedEmail = document.getElementById("generatedEmail");
@@ -1090,6 +1134,7 @@
     function setLoading(isLoading) {
       generateBtn.disabled = isLoading;
       resetBtn.disabled = isLoading;
+      sendEmailBtn.disabled = isLoading;
       generateBtn.classList.toggle("loading", isLoading);
       generateLabel.textContent = isLoading ? "Generating..." : "Generate Email Template";
     }
@@ -1339,6 +1384,55 @@
       setCopyStatus("Email HTML download started.", "success");
     }
 
+
+    function isValidRecipientEmail(value) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    function convertGeneratedHtmlToText(html) {
+      const previewContainer = document.createElement("div");
+      previewContainer.innerHTML = html;
+      previewContainer.querySelectorAll("script, style").forEach(function(element) {
+        element.remove();
+      });
+
+      return (previewContainer.innerText || previewContainer.textContent || "")
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+    }
+
+    function sendGeneratedEmail() {
+      const html = generatedEmail.value.trim();
+      const recipient = recipientEmail.value.trim();
+
+      if (!html) {
+        setCopyStatus("Generate an email template before sending it.", "error");
+        generatedEmail.focus();
+        return;
+      }
+
+      if (!recipient) {
+        setCopyStatus("Enter a recipient email address before sending.", "error");
+        recipientEmail.focus();
+        return;
+      }
+
+      if (!isValidRecipientEmail(recipient)) {
+        setCopyStatus("Enter a valid recipient email address.", "error");
+        recipientEmail.focus();
+        return;
+      }
+
+      const data = buildEmailData();
+      const body = convertGeneratedHtmlToText(html) || buildEmailText(data);
+      const mailtoUrl = "mailto:" + encodeURIComponent(recipient) +
+        "?subject=" + encodeURIComponent(data.goal.subject) +
+        "&body=" + encodeURIComponent(body);
+
+      window.location.href = mailtoUrl;
+      setCopyStatus("Opening your email app with the generated template addressed to " + recipient + ".", "success");
+    }
+
     function resetFormAndOutput() {
       fields.avatar.value = defaults.avatar;
       fields.target.value = defaults.target;
@@ -1349,6 +1443,7 @@
       fields.headline.value = defaults.headline;
       fields.notes.value = defaults.notes;
       fields.imageUpload.value = "";
+      recipientEmail.value = "";
       uploadedImageDataUrl = "";
       uploadedImageAlt = "Uploaded Air Tech Solutions email visual";
       uploadPreview.classList.remove("active");
@@ -1412,6 +1507,7 @@
     copyHtmlBtn.addEventListener("click", copyEmailHtml);
     copyTextBtn.addEventListener("click", copyEmailText);
     downloadBtn.addEventListener("click", downloadEmailHtml);
+    sendEmailBtn.addEventListener("click", sendGeneratedEmail);
     resetBtn.addEventListener("click", resetFormAndOutput);
     clearOutputBtn.addEventListener("click", clearOutput);
     generatedEmail.addEventListener("input", updatePreviewFromHtml);
