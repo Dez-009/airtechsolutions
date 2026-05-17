@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Air Tech Solutions | LinkedIn Post Generator</title>
+  <title>Air Tech Solutions | LinkedIn Email Generator</title>
   <style>
     :root {
       --ats-navy: #0a2f52;
@@ -558,26 +558,26 @@
 </head>
 <body>
   <main class="page-shell">
-    <header class="brand-header" aria-label="Air Tech Solutions LinkedIn tool header">
-      <a class="logo-card" href="#generator" aria-label="Air Tech Solutions LinkedIn Post Generator">
+    <header class="brand-header" aria-label="Air Tech Solutions LinkedIn email tool header">
+      <a class="logo-card" href="#generator" aria-label="Air Tech Solutions LinkedIn Email Generator">
         <img src="https://assets.zyrosite.com/vdR28j7XgM9CU328/ats-color-logo-8-rToABcJJPZRnl9z1.png" alt="Air Tech Solutions logo" />
       </a>
-      <div class="tool-badge">Internal LinkedIn Content Tool</div>
+      <div class="tool-badge">Internal LinkedIn Email Tool</div>
     </header>
 
     <section class="hero" id="generator">
       <div class="intro-panel">
         <div>
-          <span class="eyebrow">Commercial exterior maintenance content</span>
-          <h1>LinkedIn Post Generator</h1>
+          <span class="eyebrow">Commercial outreach personalization</span>
+          <h1>LinkedIn Email Generator</h1>
           <p>
-            Create practical, professional posts for property managers, facilities directors, hotel operations teams, HOA managers, and commercial building owners.
+            Paste a LinkedIn profile URL and generate a concise, professional outreach email for commercial property and facilities contacts.
           </p>
         </div>
 
         <div class="proof-grid" aria-label="Content guidance">
-          <div class="proof-item">Operationally aware</div>
-          <div class="proof-item">Low-hype messaging</div>
+          <div class="proof-item">Profile-informed</div>
+          <div class="proof-item">Low-hype outreach</div>
           <div class="proof-item">Maintenance focused</div>
           <div class="proof-item">Human approval first</div>
         </div>
@@ -585,26 +585,27 @@
 
       <section class="form-panel" aria-labelledby="form-title">
         <div class="panel-heading">
-          <h2 id="form-title">Build a post brief</h2>
-          <p>Enter the topic and audience details. The protected n8n workflow handles AI generation.</p>
+          <h2 id="form-title">Build a personalized email brief</h2>
+          <p>Paste a LinkedIn profile link and add outreach context. The protected n8n workflow handles profile review and AI generation.</p>
         </div>
 
-        <form id="postForm" class="form-grid" novalidate>
+        <form id="emailForm" class="form-grid" novalidate>
           <div class="form-group full">
-            <label for="topic">Post Topic <span class="required" aria-hidden="true">*</span></label>
-            <input id="topic" name="topic" type="text" autocomplete="off" required value="Commercial soft washing and preventative maintenance" />
+            <label for="linkedinProfileUrl">LinkedIn Profile Link <span class="required" aria-hidden="true">*</span></label>
+            <input id="linkedinProfileUrl" name="linkedinProfileUrl" type="url" inputmode="url" autocomplete="off" required placeholder="https://www.linkedin.com/in/example-profile" />
+            <span class="hint">Paste one LinkedIn profile URL. The email should use respectful, relevant personalization without sounding intrusive.</span>
           </div>
 
           <div class="form-group">
-            <label for="audience">Target Audience <span class="required" aria-hidden="true">*</span></label>
+            <label for="audience">Contact Type <span class="required" aria-hidden="true">*</span></label>
             <select id="audience" name="audience" required>
-              <option>Commercial Property Managers</option>
-              <option>Multifamily Operators</option>
-              <option>Hotel Operations Teams</option>
-              <option>HOA Managers</option>
-              <option>Facilities Directors</option>
-              <option>Commercial Building Owners</option>
-              <option>Residential Homeowners</option>
+              <option>Commercial Property Manager</option>
+              <option>Multifamily Operator</option>
+              <option>Hotel Operations Contact</option>
+              <option>HOA Manager</option>
+              <option>Facilities Director</option>
+              <option>Commercial Building Owner</option>
+              <option>Residential Homeowner</option>
             </select>
           </div>
 
@@ -626,30 +627,30 @@
           <div class="form-group">
             <label for="tone">Tone <span class="required" aria-hidden="true">*</span></label>
             <select id="tone" name="tone" required>
-              <option>Professional and Educational</option>
+              <option>Concise and Professional</option>
               <option>Commercial and Operational</option>
               <option>Preventative Maintenance Focused</option>
-              <option>Industry Expert</option>
+              <option>Warm but Direct</option>
               <option>Simple and Direct</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label for="cta">CTA <span class="required" aria-hidden="true">*</span></label>
-            <input id="cta" name="cta" type="text" autocomplete="off" required value="Schedule a property assessment with Air Tech Solutions" />
+            <label for="cta">Email CTA <span class="required" aria-hidden="true">*</span></label>
+            <input id="cta" name="cta" type="text" autocomplete="off" required value="Open to a quick property assessment or maintenance conversation?" />
           </div>
 
           <div class="form-group full">
-            <label for="notes">Optional Notes</label>
-            <textarea id="notes" name="notes" placeholder="Add property type, seasonality, operational context, offer details, or preferred wording."></textarea>
-            <span class="hint">Example: Emphasize low-disruption scheduling for hotels before peak travel season.</span>
+            <label for="notes">Optional Context</label>
+            <textarea id="notes" name="notes" placeholder="Add known company/property details, target market, seasonality, offer details, or preferred wording."></textarea>
+            <span class="hint">Example: Emphasize low-disruption scheduling for multifamily properties before summer leasing season.</span>
           </div>
 
           <div class="form-group full">
             <div class="actions">
               <button id="generateBtn" class="button button-primary" type="submit">
                 <span class="spinner" aria-hidden="true"></span>
-                <span id="generateLabel">Generate LinkedIn Post</span>
+                <span id="generateLabel">Generate Personalized Email</span>
               </button>
               <button id="resetBtn" class="button button-secondary" type="button">Reset / Clear</button>
             </div>
@@ -662,14 +663,14 @@
     <section class="output-panel" aria-labelledby="output-title">
       <div class="output-topline">
         <div class="panel-heading">
-          <h2 id="output-title">Generated LinkedIn Post</h2>
-          <p>Review and edit before publishing. Keep public posting under human approval.</p>
+          <h2 id="output-title">Generated Personalized Email</h2>
+          <p>Review and edit before sending. Keep outbound messaging under human approval.</p>
         </div>
         <div id="characterCounter" class="counter-pill">0 characters</div>
       </div>
 
-      <label class="screen-reader-only" for="result">Generated LinkedIn post output</label>
-      <textarea id="result" placeholder="Your generated LinkedIn post will appear here after the n8n workflow responds."></textarea>
+      <label class="screen-reader-only" for="result">Generated personalized email output</label>
+      <textarea id="result" placeholder="Your personalized email will appear here after the n8n workflow responds."></textarea>
 
       <div class="output-actions">
         <button id="copyBtn" class="button button-copy" type="button">Copy to Clipboard</button>
@@ -680,9 +681,9 @@
   </main>
 
   <script>
-    const WEBHOOK_URL = "https://airtechmass.app.n8n.cloud/webhook-test/ats-linkedin-post-generator";
+    const WEBHOOK_URL = "https://airtechmass.app.n8n.cloud/webhook-test/ats-linkedin-email-generator";
 
-    const postForm = document.getElementById("postForm");
+    const emailForm = document.getElementById("emailForm");
     const generateBtn = document.getElementById("generateBtn");
     const generateLabel = document.getElementById("generateLabel");
     const resetBtn = document.getElementById("resetBtn");
@@ -694,7 +695,7 @@
     const characterCounter = document.getElementById("characterCounter");
 
     const fields = {
-      topic: document.getElementById("topic"),
+      linkedinProfileUrl: document.getElementById("linkedinProfileUrl"),
       audience: document.getElementById("audience"),
       serviceFocus: document.getElementById("serviceFocus"),
       tone: document.getElementById("tone"),
@@ -703,11 +704,11 @@
     };
 
     const defaults = {
-      topic: "Commercial soft washing and preventative maintenance",
-      audience: "Commercial Property Managers",
+      linkedinProfileUrl: "",
+      audience: "Commercial Property Manager",
       serviceFocus: "Exterior Building Washing",
-      tone: "Professional and Educational",
-      cta: "Schedule a property assessment with Air Tech Solutions",
+      tone: "Concise and Professional",
+      cta: "Open to a quick property assessment or maintenance conversation?",
       notes: ""
     };
 
@@ -738,29 +739,74 @@
       generateBtn.disabled = isLoading;
       resetBtn.disabled = isLoading;
       generateBtn.classList.toggle("loading", isLoading);
-      generateLabel.textContent = isLoading ? "Generating..." : "Generate LinkedIn Post";
+      generateLabel.textContent = isLoading ? "Generating..." : "Generate Personalized Email";
     }
 
     function getTrimmedValue(field) {
       return field.value.trim();
     }
 
+    function isLinkedInProfileUrl(value) {
+      try {
+        const url = new URL(value);
+        const host = url.hostname.replace(/^www\./, "").toLowerCase();
+        const path = url.pathname.toLowerCase();
+
+        return host === "linkedin.com" && (path.startsWith("/in/") || path.startsWith("/pub/"));
+      } catch (error) {
+        return false;
+      }
+    }
+
     function validateForm() {
-      const requiredFields = [fields.topic, fields.audience, fields.serviceFocus, fields.tone, fields.cta];
+      const requiredFields = [fields.linkedinProfileUrl, fields.audience, fields.serviceFocus, fields.tone, fields.cta];
       const missingField = requiredFields.find(function(field) {
         return !getTrimmedValue(field);
       });
 
       if (missingField) {
         missingField.focus();
-        setStatus("Please complete all required fields before generating a post.", "error");
+        setStatus("Please complete all required fields before generating an email.", "error");
+        return false;
+      }
+
+      if (!isLinkedInProfileUrl(getTrimmedValue(fields.linkedinProfileUrl))) {
+        fields.linkedinProfileUrl.focus();
+        setStatus("Please paste a valid LinkedIn profile URL, such as https://www.linkedin.com/in/example-profile.", "error");
         return false;
       }
 
       return true;
     }
 
-    async function generatePost(event) {
+    function formatWebhookResponse(rawResponse) {
+      const trimmedResponse = rawResponse.trim();
+
+      if (!trimmedResponse) {
+        return "The webhook responded, but no email text was returned.";
+      }
+
+      try {
+        const data = JSON.parse(trimmedResponse);
+        const subject = data.subject || data.emailSubject || "";
+        const body = data.email || data.email_body || data.body || data.message || "";
+        const cta = data.cta || "";
+
+        if (subject || body || cta) {
+          return [
+            subject ? "Subject: " + subject : "",
+            body,
+            cta && !body.includes(cta) ? cta : ""
+          ].filter(Boolean).join("\n\n");
+        }
+
+        return data.output || data.text || JSON.stringify(data, null, 2);
+      } catch (error) {
+        return trimmedResponse;
+      }
+    }
+
+    async function generateEmail(event) {
       event.preventDefault();
       setCopyStatus("", "");
 
@@ -768,8 +814,11 @@
         return;
       }
 
+      const linkedinProfileUrl = getTrimmedValue(fields.linkedinProfileUrl);
       const payload = {
-        topic: getTrimmedValue(fields.topic),
+        requestType: "linkedin_profile_email",
+        linkedinProfileUrl: linkedinProfileUrl,
+        linkedin: linkedinProfileUrl,
         audience: getTrimmedValue(fields.audience),
         serviceFocus: getTrimmedValue(fields.serviceFocus),
         tone: getTrimmedValue(fields.tone),
@@ -777,9 +826,9 @@
         notes: getTrimmedValue(fields.notes)
       };
 
-      result.value = "Generating a professional LinkedIn post for Air Tech Solutions...";
+      result.value = "Generating a personalized outreach email for Air Tech Solutions...";
       updateCharacterCounter();
-      setStatus("Sending brief to n8n and waiting for the generated post...", "");
+      setStatus("Sending LinkedIn profile link to n8n and waiting for the generated email...", "");
       setLoading(true);
 
       try {
@@ -796,9 +845,9 @@
         }
 
         const data = await response.text();
-        result.value = data.trim() || "The webhook responded, but no post text was returned.";
+        result.value = formatWebhookResponse(data);
         updateCharacterCounter();
-        setStatus("Post generated successfully. Review before publishing.", "success");
+        setStatus("Email generated successfully. Review before sending.", "success");
       } catch (error) {
         result.value = "";
         updateCharacterCounter();
@@ -808,26 +857,26 @@
       }
     }
 
-    async function copyPost() {
+    async function copyEmail() {
       const text = result.value.trim();
 
       if (!text) {
-        setCopyStatus("There is no generated post to copy yet.", "error");
+        setCopyStatus("There is no generated email to copy yet.", "error");
         return;
       }
 
       try {
         await navigator.clipboard.writeText(text);
-        setCopyStatus("LinkedIn post copied to clipboard.", "success");
+        setCopyStatus("Personalized email copied to clipboard.", "success");
       } catch (error) {
         result.focus();
         result.select();
-        setCopyStatus("Clipboard access was blocked. The post text is selected so you can copy it manually.", "error");
+        setCopyStatus("Clipboard access was blocked. The email text is selected so you can copy it manually.", "error");
       }
     }
 
     function resetFormAndOutput() {
-      fields.topic.value = defaults.topic;
+      fields.linkedinProfileUrl.value = defaults.linkedinProfileUrl;
       fields.audience.value = defaults.audience;
       fields.serviceFocus.value = defaults.serviceFocus;
       fields.tone.value = defaults.tone;
@@ -837,7 +886,7 @@
       updateCharacterCounter();
       setStatus("Form reset and output cleared.", "success");
       setCopyStatus("", "");
-      fields.topic.focus();
+      fields.linkedinProfileUrl.focus();
     }
 
     function clearOutput() {
@@ -846,8 +895,8 @@
       setCopyStatus("Output cleared.", "success");
     }
 
-    postForm.addEventListener("submit", generatePost);
-    copyBtn.addEventListener("click", copyPost);
+    emailForm.addEventListener("submit", generateEmail);
+    copyBtn.addEventListener("click", copyEmail);
     resetBtn.addEventListener("click", resetFormAndOutput);
     clearOutputBtn.addEventListener("click", clearOutput);
     result.addEventListener("input", updateCharacterCounter);
