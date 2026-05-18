@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Air Tech Solutions Proposal Generator</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    :root {
+      --navy: #1f4575;
+      --steel: #70829a;
+      --light: #f4f7fb;
+      --border: #d8dee8;
+      --text: #1f2933;
+      --muted: #5f6b7a;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--light);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 24px 32px;
+      border-bottom: 6px solid var(--steel);
+    }
+
+    header h1 { margin: 0; font-size: 26px; letter-spacing: 0.5px; }
+    header p { margin: 6px 0 0; color: #dfe8f3; font-size: 14px; }
+
+    .app {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 24px;
+      padding: 24px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .panel, .preview-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(25, 45, 80, 0.08);
+    }
+
+    .panel {
+      padding: 20px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      position: sticky;
+      top: 16px;
+    }
+
+    .section-title {
+      color: var(--navy);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 6px;
+      margin: 24px 0 12px;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 800;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 13px;
+      margin: 12px 0 5px;
+      color: #27384a;
+    }
+
+    input, textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 14px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: #fff;
+    }
+
+    textarea { min-height: 86px; resize: vertical; }
+
+    input[type="file"] {
+      background: #f9fbfd;
+      border-style: dashed;
+      cursor: pointer;
+    }
+
+    .small-note { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 11px 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .primary { background: var(--navy); color: var(--white); }
+    .secondary { background: #e7edf5; color: var(--navy); }
+    .danger { background: #f3e7e7; color: #8a1f1f; }
+
+    .photo-admin-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .photo-admin-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      background: #fbfdff;
+    }
+
+    .photo-admin-card img {
+      width: 100%;
+      max-height: 130px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #dce3ec;
+      margin-bottom: 8px;
+    }
+
+    .photo-admin-card textarea { min-height: 54px; }
+
+    .preview-wrap { padding: 0; overflow: hidden; }
+
+    .preview-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      background: #f9fbfd;
+    }
+
+    .preview-toolbar strong { color: var(--navy); }
+
+    .proposal {
+      background: #fff;
+      max-width: 900px;
+      min-height: 1100px;
+      margin: 24px auto;
+      padding: 56px;
+      border: 1px solid #e0e4ea;
+      box-shadow: 0 12px 30px rgba(25, 45, 80, 0.12);
+    }
+
+    .letterhead {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+      border-bottom: 4px solid var(--navy);
+      padding-bottom: 18px;
+      margin-bottom: 30px;
+    }
+
+    .brand-logo {
+      display: block;
+      width: 260px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .brand p { margin: 3px 0; color: var(--muted); font-size: 13px; }
+
+    .proposal h1 { color: var(--navy); font-size: 28px; margin: 24px 0 8px; line-height: 1.15; }
+    .proposal h2 { color: var(--navy); font-size: 18px; margin-top: 28px; border-bottom: 1px solid #dce3ec; padding-bottom: 6px; }
+    .proposal h3 { color: #27384a; font-size: 15px; margin-bottom: 8px; }
+    .proposal p { font-size: 14px; margin: 9px 0; }
+    .proposal ul { margin-top: 8px; padding-left: 22px; }
+    .proposal li { font-size: 14px; margin-bottom: 5px; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 18px 0;
+    }
+
+    .info-box {
+      border: 1px solid #dce3ec;
+      border-radius: 10px;
+      padding: 14px;
+      background: #fbfdff;
+    }
+
+    .price-box {
+      border: 2px solid var(--navy);
+      border-radius: 12px;
+      padding: 18px;
+      margin-top: 14px;
+      background: #f8fbff;
+    }
+
+    .price-box .amount {
+      font-size: 30px;
+      color: var(--navy);
+      font-weight: 800;
+      margin-top: 4px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .photo-card {
+      border: 1px solid #dce3ec;
+      border-radius: 10px;
+      padding: 10px;
+      background: #fbfdff;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #dce3ec;
+      display: block;
+    }
+
+    .photo-card p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 26px;
+    }
+
+    .signature-line {
+      border-top: 1px solid #27384a;
+      padding-top: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 40px;
+    }
+
+    @media (max-width: 1100px) {
+      .app { grid-template-columns: 1fr; }
+      .panel { position: relative; max-height: none; }
+      .two-col, .letterhead, .signature-grid, .photo-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      header, .panel, .preview-toolbar { display: none !important; }
+      .app { display: block; padding: 0; }
+      .preview-wrap { border: 0; box-shadow: none; }
+      .proposal { margin: 0; box-shadow: none; border: 0; max-width: none; padding: 42px; }
+      .photo-card img { height: 190px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Air Tech Solutions Proposal Generator</h1>
+    <p>Millpond Village template — fill the fields, add photos, preview the proposal, then print/save as PDF.</p>
+  </header>
+
+  <main class="app">
+    <aside class="panel">
+      <div class="section-title">Client / Project</div>
+      <label>Proposal Title</label>
+      <input id="proposalTitle" value="Millpond Village Exterior Building Washing Proposal">
+
+      <label>Client / Property Name</label>
+      <input id="clientName" value="Millpond Village">
+
+      <label>Property Address</label>
+      <textarea id="propertyAddress">59 Mill Pond Road
+Broad Brook, CT 06016</textarea>
+
+      <label>Client Contact</label>
+      <input id="clientContact" value="Mark Howlader">
+
+      <label>Client Contact Title</label>
+      <input id="clientTitle" value="Maintenance Supervisor">
+
+      <label>Client Email</label>
+      <input id="clientEmail" value="mhowlader@winnco.com">
+
+      <div class="section-title">Air Tech / Signer</div>
+      <label>Authorized Representative</label>
+      <input id="repName" value="Chase Thompson">
+
+      <label>Title</label>
+      <input id="repTitle" value="Owner / President">
+
+      <label>Email</label>
+      <input id="repEmail" value="Chase@airtechsolutions.com">
+
+      <label>Phone</label>
+      <input id="repPhone" value="339-222-8457">
+
+      <div class="section-title">Scope</div>
+      <label>Included Scope</label>
+      <textarea id="includedScope">Exterior washing of Garden Buildings B through V
+Exterior washing of Townhouse Buildings A through L
+Front and rear elevations included
+Office building exterior cleaning
+Community building exterior cleaning
+Vinyl fence cleaning from back of T Garden building to end of roll-off area
+Protection of landscaping, resident belongings, and surrounding surfaces during operations</textarea>
+      <p class="small-note">One item per line. This should mirror the RFP scope.</p>
+
+      <label>Additional Scope Notes</label>
+      <textarea id="scopeNotes">Included work is limited to the areas identified within the Millpond Village RFP Scope of Work unless otherwise authorized in writing.</textarea>
+
+      <div class="section-title">Methods / Differentiators</div>
+      <label>Cleaning Methodology</label>
+      <textarea id="methodology">Air Tech Solutions utilizes a professional low-pressure soft washing process designed to safely remove dirt, algae, mildew, mold, organic staining, and environmental buildup without unnecessary surface damage.</textarea>
+
+      <label>Technical Cleaning Procedures</label>
+      <textarea id="technicalProcedures">Pre-treatment of affected surfaces using professional cleaning solutions designed to break down organic buildup
+Controlled low-pressure soft washing application methods
+Organic growth treatment processes designed to remove and inhibit future biological buildup
+Surface-safe cleaning techniques for vinyl, composite, painted, and exterior building materials
+Landscaping and vegetation protection including pre-wetting, controlled application, and post-rinse procedures
+Thorough rinsing procedures to remove debris and residual buildup from exterior surfaces and windows following soft washing operations
+Daily housekeeping, debris removal, and job-site cleanup procedures</textarea>
+
+      <label>What Sets Air Tech Apart</label>
+      <textarea id="differentiators">Industrial skid systems designed for large-scale exterior cleaning production
+Professional lift equipment for elevated access operations
+Drone-assisted inspection and operational support capabilities
+Commercial surface cleaning equipment for sidewalks, entryways, and common areas
+Up to 8 crew members readily available for project deployment and schedule support
+Strong operational capacity that helps reduce manpower-related project delays</textarea>
+
+      <div class="section-title">Schedule / Pricing</div>
+      <label>Estimated Start Date</label>
+      <input id="startDate" value="[INSERT START DATE]">
+
+      <label>Estimated Completion Timeline</label>
+      <input id="timeline" value="Approximately 25 days pending weather and site conditions">
+
+      <label>Total Project Cost</label>
+      <input id="price" value="$[INSERT FINAL BID PRICE]">
+
+      <label>Quote Breakdown</label>
+      <textarea id="quoteBreakdown">Exterior building washing: $[INSERT AMOUNT]
+Vinyl fence cleaning: $[INSERT AMOUNT]
+Equipment, labor, materials, and supervision: Included
+Mobilization and project coordination: Included</textarea>
+      <p class="small-note">One line per quote item. Use this to show how the total price is built.</p>
+
+      <label>Optional Add-On Breakdown</label>
+      <textarea id="optionalAddOns">Optional window cleaning: $[INSERT AMOUNT]
+Optional gutter cleaning: $[INSERT AMOUNT]
+Optional dryer vent cleaning: $[INSERT AMOUNT]
+Optional surface cleaning for sidewalks/common areas: $[INSERT AMOUNT]</textarea>
+      <p class="small-note">One optional add-on per line. Leave blank if no add-ons are offered.</p>
+
+      <label>Pricing Notes</label>
+      <textarea id="pricingNotes">Pricing includes all labor, supervision, cleaning materials, equipment, operational support, and project execution associated with the defined scope of work.</textarea>
+
+      <div class="section-title">Photos / Areas of Concern</div>
+      <label>Upload Photos</label>
+      <input id="photoUpload" type="file" accept="image/*" multiple>
+      <p class="small-note">Upload up to 20 images. They will appear in the proposal and print/save to PDF.</p>
+
+      <label>Photo Section Intro</label>
+      <textarea id="photoIntro">The following site photos identify visible areas of concern, buildup, staining, or exterior conditions relevant to the proposed scope of work.</textarea>
+
+      <div id="photoAdmin" class="photo-admin-grid"></div>
+      <button class="secondary" type="button" onclick="clearPhotos()" style="width:100%;margin-top:10px;">Clear Uploaded Photos</button>
+
+      <div class="section-title">Exclusions</div>
+      <label>Excluded Items</label>
+      <textarea id="exclusions">Window cleaning is excluded. Windows will be rinsed of debris during soft washing operations but are not included as a detailed window cleaning service.
+Oxidation removal
+Screen repair or replacement
+Surface repairs
+Electrical work
+Water or utility supply by contractor
+Landscaping repairs unrelated to contractor negligence
+Inaccessible areas requiring specialized access equipment unless specifically included
+Work outside defined scope areas</textarea>
+
+      <div class="section-title">References</div>
+      <label>Reference 1</label>
+      <textarea id="ref1">Jim Godfrey
+Construction Manager, Capital Projects, Greystar
+Mobile: 774-573-5603
+Email: James.Godfrey@greystar.com</textarea>
+
+      <label>Reference 2</label>
+      <textarea id="ref2">Mel Angelo
+Property Manager, Aspen Regency, Garden Communities
+Mobile: 978-437-0575
+Email: mela@gardencommunitiesma.com</textarea>
+
+      <div class="actions">
+        <button class="primary" type="button" onclick="updateProposal()">Update Preview</button>
+        <button class="secondary" type="button" onclick="downloadPDF()">Download PDF</button>
+        <button class="secondary" type="button" onclick="copyProposalText()">Copy Text</button>
+        <button class="danger" type="button" onclick="resetTemplate()">Reset</button>
+      </div>
+    </aside>
+
+    <section class="preview-wrap">
+      <div class="preview-toolbar">
+        <strong>Live Proposal Preview</strong>
+        <span>Use Download PDF after images finish loading.</span>
+      </div>
+      <article class="proposal" id="proposal">
+        <h1>Loading proposal preview...</h1>
+        <p>If this message remains visible, JavaScript is disabled or blocked on this page.</p>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    var fieldIds = [
+      'proposalTitle','clientName','propertyAddress','clientContact','clientTitle','clientEmail',
+      'repName','repTitle','repEmail','repPhone','includedScope','scopeNotes','methodology',
+      'technicalProcedures','differentiators','startDate','timeline','price','quoteBreakdown','optionalAddOns','pricingNotes','photoIntro','exclusions','ref1','ref2'
+    ];
+
+    var uploadedPhotos = [];
+    var maxPhotos = 20;
+
+    function getValue(id) {
+      var el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    }
+
+    function escapeHtml(text) {
+      return String(text || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function nl2br(text) {
+      return escapeHtml(text).replace(/\n/g, '<br>');
+    }
+
+    function listFromLines(text) {
+      var lines = String(text || '').split('\n');
+      var html = '';
+      for (var i = 0; i < lines.length; i++) {
+        var item = lines[i].trim();
+        if (item.length > 0) html += '<li>' + escapeHtml(item) + '</li>';
+      }
+      return html;
+    }
+
+    function updateProposal() {
+      var proposal = document.getElementById('proposal');
+      if (!proposal) return;
+
+      var html = '';
+
+      html += '<div class="letterhead">';
+      html += '<div class="brand"><img class="brand-logo" src="https://assets.zyrosite.com/vdR28j7XgM9CU328/ats-color-logo-8-rToABcJJPZRnl9z1.png" alt="Air Tech Solutions logo"><p>93 Border Street, West Newton, MA 02465</p><p>airtechsolutions.com</p></div>';
+      html += '<div style="text-align:right;font-size:13px;color:#5f6b7a;"><strong>Professional Exterior Cleaning</strong><br>Commercial • Multifamily • Hospitality<br>Safety-Focused Property Maintenance</div>';
+      html += '</div>';
+
+      html += '<h1>' + escapeHtml(getValue('proposalTitle')) + '</h1>';
+
+      html += '<div class="two-col">';
+      html += '<div class="info-box"><h3>Prepared For</h3><p><strong>' + escapeHtml(getValue('clientName')) + '</strong><br>' + nl2br(getValue('propertyAddress')) + '</p><p><strong>Attention:</strong><br>' + escapeHtml(getValue('clientContact')) + '<br>' + escapeHtml(getValue('clientTitle')) + '<br>' + escapeHtml(getValue('clientEmail')) + '</p></div>';
+      html += '<div class="info-box"><h3>Prepared By</h3><p><strong>Air Tech Solutions</strong><br>93 Border Street<br>West Newton, MA 02465</p><p><strong>' + escapeHtml(getValue('repName')) + '</strong><br>' + escapeHtml(getValue('repTitle')) + '<br>' + escapeHtml(getValue('repEmail')) + '<br>' + escapeHtml(getValue('repPhone')) + '</p></div>';
+      html += '</div>';
+
+      html += '<h2>Executive Summary</h2>';
+      html += '<p>Air Tech Solutions appreciates the opportunity to submit this proposal for exterior building washing services at ' + escapeHtml(getValue('clientName')) + '.</p>';
+      html += '<p>Our team specializes in professional exterior cleaning and preventative property maintenance services for multifamily, commercial, hospitality, and residential properties throughout the Northeast.</p>';
+      html += '<p>We understand the operational requirements associated with occupied residential communities, including resident safety, property protection, scheduling coordination, and minimizing disruption during active work operations.</p>';
+      html += '<p>Air Tech Solutions is committed to delivering professional project execution, organized job-site operations, and high-quality exterior cleaning services in accordance with the requirements outlined within the request for proposal.</p>';
+
+      html += '<h2>Company Overview</h2>';
+      html += '<p>Air Tech Solutions is a professional exterior cleaning and property maintenance company serving multifamily, commercial, hospitality, industrial, and residential properties.</p>';
+      html += '<p>We focus on safe, reliable, and professional operations designed to improve curb appeal, maintain property standards, and protect building assets.</p>';
+
+      html += '<h2>Scope of Work</h2>';
+      html += '<p>Air Tech Solutions will provide all labor, equipment, materials, supervision, cleaning solutions, and operational support necessary to complete the exterior washing services outlined in the RFP.</p>';
+      html += '<h3>Included Scope</h3><ul>' + listFromLines(getValue('includedScope')) + '</ul>';
+      html += '<p>' + nl2br(getValue('scopeNotes')) + '</p>';
+
+      html += '<h2>Cleaning Methodology</h2>';
+      html += '<p>' + nl2br(getValue('methodology')) + '</p>';
+      html += '<h3>Technical Cleaning Procedures</h3><ul>' + listFromLines(getValue('technicalProcedures')) + '</ul>';
+
+      html += '<h2>Operational Capabilities</h2>';
+      html += '<p>What separates Air Tech Solutions from many competitors is our ability to scale operations efficiently while maintaining professional project execution standards.</p>';
+      html += '<ul>' + listFromLines(getValue('differentiators')) + '</ul>';
+
+      html += '<h2>Safety, Insurance & Compliance</h2>';
+      html += '<p>Safety and compliance are core operational priorities at Air Tech Solutions. We maintain OSHA-focused job-site procedures and operate with an emphasis on safe work practices, property protection, and professional project execution.</p>';
+      html += '<ul><li>General Liability Insurance</li><li>Workers Compensation Insurance</li><li>Commercial Auto Insurance</li><li>Vendor Compliance Documentation</li><li>OSHA-focused operational procedures</li><li>Safety Data Sheet availability for applicable cleaning products</li><li>Resident and pedestrian protection procedures</li><li>Work-zone management, housekeeping, and daily cleanup</li></ul>';
+      html += '<p>Air Tech Solutions is prepared to comply with Compliance Depot requirements and all vendor credentialing and compliance procedures required by property management.</p>';
+
+      if (uploadedPhotos.length > 0) {
+        html += '<h2>Site Photos / Areas of Concern</h2>';
+        html += '<p>' + nl2br(getValue('photoIntro')) + '</p>';
+        html += '<div class="photo-grid">';
+        for (var p = 0; p < uploadedPhotos.length; p++) {
+          html += '<div class="photo-card"><img src="' + uploadedPhotos[p].src + '" alt="Area of concern photo ' + (p + 1) + '"><p><strong>Photo ' + (p + 1) + ':</strong> ' + escapeHtml(uploadedPhotos[p].caption || 'Area of concern') + '</p></div>';
+        }
+        html += '</div>';
+      }
+
+      html += '<h2>Project Schedule</h2>';
+      html += '<p><strong>Estimated Start Date:</strong> ' + escapeHtml(getValue('startDate')) + '</p>';
+      html += '<p><strong>Estimated Completion Timeline:</strong> ' + escapeHtml(getValue('timeline')) + '</p>';
+      html += '<p>Work scheduling will be coordinated with property management to minimize disruption to residents, staff, and property operations. Weather delays, unsafe working conditions, or unforeseen site conditions may impact production timelines.</p>';
+
+      html += '<h2>Exclusions</h2>';
+      html += '<p>Unless specifically stated otherwise within this proposal, the following items are excluded:</p>';
+      html += '<ul>' + listFromLines(getValue('exclusions')) + '</ul>';
+      html += '<p>Additional services outside the defined scope may require a written change order and additional pricing.</p>';
+
+      html += '<h2>References</h2>';
+      html += '<div class="two-col"><div class="info-box"><p>' + nl2br(getValue('ref1')) + '</p></div><div class="info-box"><p>' + nl2br(getValue('ref2')) + '</p></div></div>';
+
+      html += '<h2>Pricing</h2>';
+      html += '<div class="price-box"><p><strong>Total Project Cost</strong></p><div class="amount">' + escapeHtml(getValue('price')) + '</div><p>' + nl2br(getValue('pricingNotes')) + '</p></div>';
+      html += '<h3>Quote Breakdown</h3><ul>' + listFromLines(getValue('quoteBreakdown')) + '</ul>';
+      if (getValue('optionalAddOns').length > 0) {
+        html += '<h3>Optional Add-On Breakdown</h3><p>The following optional services may be added upon written approval by property management:</p><ul>' + listFromLines(getValue('optionalAddOns')) + '</ul>';
+      }
+
+      html += '<h2>Proposal Acceptance</h2>';
+      html += '<p>Submitted by Air Tech Solutions.</p>';
+      html += '<div class="signature-grid"><div><div class="signature-line">Authorized Signature</div></div><div><div class="signature-line">Date</div></div></div>';
+      html += '<p><strong>' + escapeHtml(getValue('repName')) + '</strong><br>' + escapeHtml(getValue('repTitle')) + '<br>' + escapeHtml(getValue('repEmail')) + '<br>' + escapeHtml(getValue('repPhone')) + '</p>';
+
+      html += '<h2>Final Submission Checklist</h2>';
+      html += '<ul><li>Air Tech proposal PDF</li><li>Signed RFP Offer page from original RFP document</li><li>Signed Appendix A Scope page from original RFP document</li><li>Certificate of Insurance</li><li>Company Overview</li><li>W9 and vendor compliance documents, if requested</li></ul>';
+
+      proposal.innerHTML = html;
+      saveState();
+    }
+
+    function renderPhotoAdmin() {
+      var container = document.getElementById('photoAdmin');
+      if (!container) return;
+      var html = '';
+      for (var i = 0; i < uploadedPhotos.length; i++) {
+        html += '<div class="photo-admin-card">';
+        html += '<img src="' + uploadedPhotos[i].src + '" alt="Uploaded photo ' + (i + 1) + '">';
+        html += '<label>Caption for Photo ' + (i + 1) + '</label>';
+        html += '<textarea data-photo-caption="' + i + '">' + escapeHtml(uploadedPhotos[i].caption || '') + '</textarea>';
+        html += '<button class="danger" type="button" onclick="removePhoto(' + i + ')" style="width:100%;margin-top:8px;">Remove Photo</button>';
+        html += '</div>';
+      }
+      container.innerHTML = html;
+
+      var captions = container.querySelectorAll('[data-photo-caption]');
+      for (var c = 0; c < captions.length; c++) {
+        captions[c].addEventListener('input', function(e) {
+          var index = parseInt(e.target.getAttribute('data-photo-caption'), 10);
+          if (!isNaN(index) && uploadedPhotos[index]) {
+            uploadedPhotos[index].caption = e.target.value;
+            updateProposal();
+          }
+        });
+      }
+    }
+
+    function handlePhotoUpload(event) {
+      var files = Array.prototype.slice.call(event.target.files || []);
+      if (!files.length) return;
+
+      var remaining = maxPhotos - uploadedPhotos.length;
+      if (remaining <= 0) {
+        alert('Maximum of 20 photos reached. Remove photos before adding more.');
+        event.target.value = '';
+        return;
+      }
+
+      if (files.length > remaining) {
+        alert('Only ' + remaining + ' more photo(s) can be added. Maximum is 20.');
+        files = files.slice(0, remaining);
+      }
+
+      var loaded = 0;
+      for (var i = 0; i < files.length; i++) {
+        if (!files[i].type.match('image.*')) {
+          loaded++;
+          continue;
+        }
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedPhotos.push({ src: e.target.result, caption: 'Area of concern' });
+          loaded++;
+          if (loaded >= files.length) {
+            renderPhotoAdmin();
+            updateProposal();
+            saveState();
+          }
+        };
+        reader.readAsDataURL(files[i]);
+      }
+      event.target.value = '';
+    }
+
+    function removePhoto(index) {
+      uploadedPhotos.splice(index, 1);
+      renderPhotoAdmin();
+      updateProposal();
+      saveState();
+    }
+
+    function clearPhotos() {
+      if (!confirm('Remove all uploaded photos from this proposal?')) return;
+      uploadedPhotos = [];
+      renderPhotoAdmin();
+      updateProposal();
+      saveState();
+    }
+
+    function downloadPDF() {
+      updateProposal();
+
+      var element = document.getElementById('proposal');
+      if (!element) {
+        alert('Proposal preview could not be found.');
+        return;
+      }
+
+      var clientName = getValue('clientName') || 'Client';
+      var proposalTitle = getValue('proposalTitle') || 'Proposal';
+
+      var safeClient = clientName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+      var safeTitle = proposalTitle.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+
+      var filename = 'airtech_' + safeClient + '_' + safeTitle + '.pdf';
+
+      var options = {
+        margin: [12, 12, 12, 12],
+        filename: filename,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          scrollY: 0
+        },
+        jsPDF: {
+          unit: 'mm',
+          format: 'letter',
+          orientation: 'portrait'
+        },
+        pagebreak: {
+          mode: ['avoid-all', 'css', 'legacy']
+        }
+      };
+
+      setTimeout(function() {
+        html2pdf().set(options).from(element).save();
+      }, 500);
+    }
+
+    function copyProposalText() {
+      var text = document.getElementById('proposal').innerText;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+          alert('Proposal text copied to clipboard.');
+        }).catch(function() { fallbackCopy(text); });
+      } else { fallbackCopy(text); }
+    }
+
+    function fallbackCopy(text) {
+      var temp = document.createElement('textarea');
+      temp.value = text;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      alert('Proposal text copied to clipboard.');
+    }
+
+    function saveState() {
+      try {
+        var data = {};
+        for (var i = 0; i < fieldIds.length; i++) data[fieldIds[i]] = getValue(fieldIds[i]);
+        data.uploadedPhotos = uploadedPhotos;
+        localStorage.setItem('airtechProposalGeneratorV3', JSON.stringify(data));
+      } catch (e) {}
+    }
+
+    function loadState() {
+      try {
+        var saved = localStorage.getItem('airtechProposalGeneratorV3');
+        if (!saved) return;
+        var data = JSON.parse(saved);
+        for (var i = 0; i < fieldIds.length; i++) {
+          var el = document.getElementById(fieldIds[i]);
+          if (el && data[fieldIds[i]] !== undefined) el.value = data[fieldIds[i]];
+        }
+        if (Array.isArray(data.uploadedPhotos)) uploadedPhotos = data.uploadedPhotos.slice(0, maxPhotos);
+      } catch (e) {}
+    }
+
+    function resetTemplate() {
+      if (!confirm('Reset all saved edits and uploaded photos back to the original Millpond template?')) return;
+      try { localStorage.removeItem('airtechProposalGeneratorV3'); } catch (e) {}
+      location.reload();
+    }
+
+    function attachEvents() {
+      for (var i = 0; i < fieldIds.length; i++) {
+        var el = document.getElementById(fieldIds[i]);
+        if (el) el.addEventListener('input', updateProposal);
+      }
+      var photoUpload = document.getElementById('photoUpload');
+      if (photoUpload) photoUpload.addEventListener('change', handlePhotoUpload);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      loadState();
+      attachEvents();
+      renderPhotoAdmin();
+      updateProposal();
+    });
+  </script>
+</body>
+</html>
