@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Air Tech Solutions provides professional commercial exterior cleaning, soft washing, window cleaning, roof care, inspections, and preventative maintenance for property managers and facilities teams." />
+  <title>Air Tech Solutions | Commercial Exterior Cleaning</title>
+  <style>
+    :root {
+      --ats-navy: #0a2f52;
+      --ats-navy-deep: #061f38;
+      --ats-blue: #1769aa;
+      --ats-blue-light: #e8f3fb;
+      --ats-sky: #3b9bd8;
+      --ats-green: #16a34a;
+      --ats-green-dark: #10843b;
+      --ats-white: #ffffff;
+      --ats-ink: #172033;
+      --ats-muted: #65758b;
+      --ats-line: #dbe7f1;
+      --ats-soft: #f4f8fb;
+      --ats-molecule: #b9ebff;
+      --shadow-card: 0 22px 70px rgba(10, 47, 82, 0.14);
+      --shadow-soft: 0 12px 34px rgba(10, 47, 82, 0.09);
+      --shadow-pop: 0 26px 80px rgba(59, 155, 216, 0.32);
+      --radius-xl: 30px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(59, 155, 216, 0.20), transparent 30rem),
+        radial-gradient(circle at 92% 12%, rgba(22, 163, 74, 0.12), transparent 28rem),
+        linear-gradient(180deg, #f8fbfe 0%, #eef5f9 46%, #ffffff 100%);
+      color: var(--ats-ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+    .page-shell {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+
+    .brand-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .logo-card {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 260px;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(219, 231, 241, 0.92);
+      border-radius: 999px;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(10px);
+    }
+
+    .logo-card img {
+      width: 148px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .logo-fallback {
+      display: none;
+      color: var(--ats-navy);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-card.logo-image-error img {
+      display: none;
+    }
+
+    .logo-card.logo-image-error .logo-fallback {
+      display: inline;
+    }
+
+    .service-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      color: var(--ats-navy);
+      background: rgba(232, 243, 251, 0.88);
+      border: 1px solid rgba(59, 155, 216, 0.22);
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .service-badge span {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--ats-green);
+      box-shadow: 0 0 0 6px rgba(22, 163, 74, 0.13);
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+      gap: 28px;
+      align-items: stretch;
+      min-height: 680px;
+    }
+
+    .hero-copy,
+    .hero-panel,
+    .section-card,
+    .quote-panel {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(219, 231, 241, 0.9);
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-copy {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 5vw, 58px);
+      border-radius: var(--radius-xl);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      background: rgba(22, 163, 74, 0.10);
+      border: 1px solid rgba(22, 163, 74, 0.18);
+      border-radius: 999px;
+      color: var(--ats-green-dark);
+      font-size: 0.82rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ats-green);
+    }
+
+    h1 {
+      max-width: 780px;
+      color: var(--ats-navy);
+      font-size: clamp(2.45rem, 4.6vw, 4.05rem);
+      line-height: 0.98;
+      letter-spacing: -0.065em;
+    }
+
+    .hero-copy h1 span {
+      color: var(--ats-blue);
+    }
+
+    .lead {
+      max-width: 690px;
+      margin-top: 24px;
+      color: #344258;
+      font-size: clamp(1.04rem, 2vw, 1.28rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 14px 20px;
+      border-radius: 999px;
+      font-weight: 900;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: var(--ats-white);
+      background: linear-gradient(135deg, var(--ats-green), var(--ats-blue));
+      box-shadow: 0 18px 38px rgba(23, 105, 170, 0.23);
+    }
+
+    .btn-secondary {
+      color: var(--ats-navy);
+      background: var(--ats-white);
+      border: 1px solid rgba(23, 105, 170, 0.18);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .trust-item {
+      padding: 16px;
+      border: 1px solid var(--ats-line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, #ffffff, #f7fbfe);
+    }
+
+    .trust-item strong {
+      display: block;
+      color: var(--ats-navy);
+      font-size: 1.05rem;
+    }
+
+    .trust-item span {
+      display: block;
+      margin-top: 4px;
+      color: var(--ats-muted);
+      font-size: 0.9rem;
+    }
+
+    .section-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(219, 231, 241, 0.9);
+    }
+
+    .section-links a {
+      padding: 10px 13px;
+      border-radius: 999px;
+      color: var(--ats-navy);
+      background: var(--ats-blue-light);
+      border: 1px solid rgba(23, 105, 170, 0.12);
+      font-size: 0.9rem;
+      font-weight: 800;
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .section-links a:hover {
+      transform: translateY(-2px);
+      background: #d8edf9;
+    }
+
+    .hero-panel {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      align-content: space-between;
+      padding: 26px;
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(145deg, rgba(10, 47, 82, 0.96), rgba(23, 105, 170, 0.93)),
+        var(--ats-navy);
+      color: var(--ats-white);
+      isolation: isolate;
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: -120px -120px auto auto;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(22, 163, 74, 0.58), transparent 68%);
+      z-index: -2;
+    }
+
+    .hero-panel h2 {
+      max-width: 400px;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+    }
+
+    .panel-copy {
+      margin-top: 14px;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 1rem;
+    }
+
+    .chemical-stage {
+      position: relative;
+      min-height: 360px;
+      margin: 30px 0;
+      border-radius: 26px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.05)),
+        radial-gradient(circle at center, rgba(185, 235, 255, 0.18), transparent 58%);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .molecule {
+      --size: 118px;
+      position: absolute;
+      width: var(--size);
+      height: var(--size);
+      filter: drop-shadow(0 22px 34px rgba(0, 0, 0, 0.24));
+      animation: moleculeFloat 6s ease-in-out infinite;
+      transition: transform 220ms ease, filter 220ms ease;
+    }
+
+    .molecule:hover {
+      transform: scale(1.12) rotate(5deg);
+      filter: drop-shadow(var(--shadow-pop));
+    }
+
+    .molecule.one { left: 8%; top: 8%; animation-delay: -1s; }
+    .molecule.two { right: 7%; top: 22%; --size: 142px; animation-delay: -2.5s; }
+    .molecule.three { left: 31%; bottom: 8%; --size: 156px; animation-delay: -4s; }
+
+    .atom {
+      position: absolute;
+      width: 44%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 33% 28%, #ffffff, var(--ats-molecule) 34%, #42b3e3 72%);
+      border: 2px solid rgba(255, 255, 255, 0.88);
+      box-shadow: inset 0 -10px 22px rgba(6, 31, 56, 0.22), 0 16px 32px rgba(1, 11, 24, 0.18);
+    }
+
+    .atom.a { left: 28%; top: 4%; }
+    .atom.b { left: 4%; bottom: 8%; transform: scale(0.74); background: radial-gradient(circle at 33% 28%, #ffffff, #c9f3da 34%, #16a34a 72%); }
+    .atom.c { right: 3%; bottom: 10%; transform: scale(0.86); }
+    .bond {
+      position: absolute;
+      height: 8px;
+      width: 46%;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.74);
+      transform-origin: left center;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.18);
+    }
+    .bond.ab { left: 27%; top: 49%; transform: rotate(140deg); }
+    .bond.ac { left: 50%; top: 48%; transform: rotate(38deg); }
+
+    @keyframes moleculeFloat {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 -18px; }
+    }
+
+    .panel-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .panel-stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .panel-stat b {
+      display: block;
+      font-size: 1.7rem;
+      line-height: 1;
+    }
+
+    .panel-stat span {
+      display: block;
+      margin-top: 7px;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.88rem;
+    }
+
+    main {
+      display: grid;
+      gap: 24px;
+      margin-top: 26px;
+    }
+
+    .section-card {
+      padding: clamp(24px, 4vw, 42px);
+      border-radius: var(--radius-xl);
+      scroll-margin-top: 24px;
+    }
+
+    .section-kicker {
+      color: var(--ats-green-dark);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin-top: 8px;
+      color: var(--ats-navy);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1;
+      letter-spacing: -0.055em;
+    }
+
+    .section-intro {
+      max-width: 780px;
+      margin-top: 14px;
+      color: var(--ats-muted);
+      font-size: 1.05rem;
+    }
+
+    .audience-grid,
+    .service-grid,
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 26px;
+    }
+
+    .audience-card,
+    .service-card,
+    .proof-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 190px;
+      padding: 22px;
+      border: 1px solid var(--ats-line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, #ffffff, #f8fbfe);
+      transition: transform 190ms ease, box-shadow 190ms ease, border-color 190ms ease;
+    }
+
+    .audience-card:hover,
+    .service-card:hover,
+    .proof-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(59, 155, 216, 0.42);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 16px;
+      border-radius: 14px;
+      color: var(--ats-white);
+      background: linear-gradient(135deg, var(--ats-blue), var(--ats-green));
+      font-weight: 900;
+    }
+
+    .audience-card h3,
+    .service-card h3,
+    .proof-card h3 {
+      color: var(--ats-navy);
+      font-size: 1.12rem;
+    }
+
+    .audience-card p,
+    .service-card p,
+    .proof-card p {
+      margin-top: 9px;
+      color: var(--ats-muted);
+      font-size: 0.96rem;
+    }
+
+    .procedure-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 20px;
+      margin-top: 28px;
+      align-items: start;
+    }
+
+    .procedure-tabs {
+      display: grid;
+      gap: 10px;
+    }
+
+    .procedure-tab {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+      padding: 16px 18px;
+      border: 1px solid var(--ats-line);
+      border-radius: 18px;
+      color: var(--ats-navy);
+      background: var(--ats-white);
+      text-align: left;
+      font-weight: 900;
+      transition: background 180ms ease, transform 180ms ease, border-color 180ms ease;
+    }
+
+    .procedure-tab:hover,
+    .procedure-tab.active {
+      transform: translateX(3px);
+      background: var(--ats-blue-light);
+      border-color: rgba(59, 155, 216, 0.34);
+    }
+
+    .procedure-tab span {
+      color: var(--ats-green-dark);
+      font-size: 0.84rem;
+    }
+
+    .procedure-detail {
+      min-height: 392px;
+      padding: 26px;
+      border-radius: 24px;
+      color: var(--ats-white);
+      background:
+        linear-gradient(135deg, rgba(10, 47, 82, 0.94), rgba(23, 105, 170, 0.90)),
+        var(--ats-navy);
+      box-shadow: var(--shadow-card);
+    }
+
+    .procedure-detail h3 {
+      font-size: clamp(1.6rem, 3vw, 2.25rem);
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+    }
+
+    .procedure-detail p {
+      margin-top: 12px;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .procedure-detail ul {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+      list-style: none;
+    }
+
+    .procedure-detail li {
+      position: relative;
+      padding-left: 28px;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .procedure-detail li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--ats-green);
+      box-shadow: 0 0 0 5px rgba(22, 163, 74, 0.18);
+    }
+
+    .mini-molecule {
+      position: relative !important;
+      display: block;
+      float: right;
+      width: 96px;
+      height: 96px;
+      margin-left: 14px;
+      shape-outside: circle();
+    }
+
+    .maintenance-builder {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 28px;
+    }
+
+    .selector-panel {
+      padding: 22px;
+      border: 1px solid var(--ats-line);
+      border-radius: 24px;
+      background: #ffffff;
+    }
+
+    .selector-panel label {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--ats-navy);
+      font-weight: 900;
+    }
+
+    .selector-panel select {
+      width: 100%;
+      margin-bottom: 18px;
+      padding: 14px 15px;
+      border: 1px solid var(--ats-line);
+      border-radius: 14px;
+      color: var(--ats-ink);
+      background: var(--ats-soft);
+      outline: none;
+    }
+
+    .selector-panel select:focus {
+      border-color: var(--ats-sky);
+      box-shadow: 0 0 0 4px rgba(59, 155, 216, 0.12);
+    }
+
+    .recommendation {
+      display: grid;
+      align-content: center;
+      min-height: 330px;
+      padding: 26px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at top right, rgba(22, 163, 74, 0.20), transparent 15rem),
+        linear-gradient(145deg, #ffffff, #edf7fd);
+      border: 1px solid rgba(59, 155, 216, 0.20);
+    }
+
+    .recommendation .label {
+      color: var(--ats-green-dark);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .recommendation h3 {
+      margin-top: 8px;
+      color: var(--ats-navy);
+      font-size: clamp(1.7rem, 3vw, 2.35rem);
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+    }
+
+    .recommendation p {
+      margin-top: 12px;
+      color: var(--ats-muted);
+    }
+
+    .quote-panel {
+      display: grid;
+      grid-template-columns: 1fr 0.92fr;
+      gap: 24px;
+      align-items: center;
+      padding: clamp(24px, 5vw, 46px);
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(circle at 90% 10%, rgba(22, 163, 74, 0.18), transparent 24rem),
+        linear-gradient(145deg, #0a2f52, #1769aa);
+      color: var(--ats-white);
+    }
+
+    .quote-panel h2 {
+      font-size: clamp(2rem, 4vw, 3.35rem);
+      line-height: 1;
+      letter-spacing: -0.055em;
+    }
+
+    .quote-panel p {
+      max-width: 650px;
+      margin-top: 14px;
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    .quote-form {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .quote-form input,
+    .quote-form textarea {
+      width: 100%;
+      padding: 14px 15px;
+      color: var(--ats-white);
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 14px;
+      outline: none;
+    }
+
+    .quote-form input::placeholder,
+    .quote-form textarea::placeholder {
+      color: rgba(255, 255, 255, 0.64);
+    }
+
+    .quote-form textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .quote-form .btn {
+      width: 100%;
+    }
+
+    .form-note {
+      color: rgba(255, 255, 255, 0.66);
+      font-size: 0.84rem;
+      text-align: center;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      z-index: 20;
+      padding: 13px 16px;
+      border-radius: 999px;
+      color: var(--ats-white);
+      background: var(--ats-navy);
+      box-shadow: var(--shadow-card);
+      opacity: 0;
+      transform: translate(-50%, 16px);
+      pointer-events: none;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 960px) {
+      .hero,
+      .procedure-layout,
+      .maintenance-builder,
+      .quote-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .audience-grid,
+      .service-grid,
+      .proof-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page-shell {
+        width: min(100% - 22px, 1200px);
+        padding-top: 16px;
+      }
+
+      .brand-strip,
+      .trust-grid,
+      .audience-grid,
+      .service-grid,
+      .proof-grid,
+      .panel-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-strip {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .service-badge {
+        justify-content: center;
+      }
+
+      .hero-copy,
+      .hero-panel,
+      .section-card,
+      .quote-panel {
+        border-radius: 22px;
+      }
+
+      .hero-copy h1 span {
+        white-space: normal;
+      }
+
+      .chemical-stage {
+        min-height: 290px;
+      }
+
+      .molecule.two { right: 0; }
+      .molecule.three { left: 22%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="brand-strip" aria-label="Air Tech Solutions brand statement">
+      <a class="logo-card" href="#top" aria-label="Air Tech Solutions home">
+        <img src="https://assets.zyrosite.com/vdR28j7XgM9CU328/ats-color-logo-8-rToABcJJPZRnl9z1.png" alt="Air Tech Solutions logo" onerror="this.closest('.logo-card').classList.add('logo-image-error')" />
+        <span class="logo-fallback">Air Tech Solutions</span>
+      </a>
+      <div class="service-badge"><span></span> Commercial cleaning techs: the Cleaning Geniuses</div>
+    </div>
+
+    <header class="hero" id="top">
+      <section class="hero-copy" aria-labelledby="hero-title">
+        <p class="eyebrow">Commercial exterior cleaning without the guesswork</p>
+        <h1 id="hero-title">Clean properties. Clear documentation. <span>Professional execution.</span></h1>
+        <p class="lead">Air Tech Solutions helps property managers, facility directors, HOAs, hotels, and commercial owners keep exterior assets clean, safer, and easier to manage with scheduled soft washing, window cleaning, surface cleaning, drone-assisted inspections, and photo documentation.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#quote">Request a property assessment</a>
+          <a class="btn btn-secondary" href="#procedures">See how cleaning works</a>
+        </div>
+        <div class="trust-grid" aria-label="Operational trust points">
+          <div class="trust-item"><strong>Safety-aware</strong><span>Low-disruption workflows for active properties.</span></div>
+          <div class="trust-item"><strong>Documented</strong><span>Before-and-after records for maintenance files.</span></div>
+          <div class="trust-item"><strong>Scalable</strong><span>Programs for single buildings or recurring portfolios.</span></div>
+        </div>
+        <div class="section-links" aria-label="Page section links">
+          <a href="#clients">Who we serve</a>
+          <a href="#services">Services</a>
+          <a href="#procedures">Procedures</a>
+          <a href="#chemistry">Cleaning science</a>
+          <a href="#maintenance">Plan builder</a>
+          <a href="#quote">Quote</a>
+        </div>
+      </section>
+
+      <aside class="hero-panel" aria-label="Cleaning science preview">
+        <div>
+          <h2>Professional cleaning built around chemistry, access, and property operations.</h2>
+          <p class="panel-copy">Our Cleaning Geniuses match the cleaning method to the surface, soil type, building access, and operational constraints before work begins.</p>
+        </div>
+        <div class="chemical-stage" aria-hidden="true">
+          <div class="molecule one"><i class="bond ab"></i><i class="bond ac"></i><i class="atom a"></i><i class="atom b"></i><i class="atom c"></i></div>
+          <div class="molecule two"><i class="bond ab"></i><i class="bond ac"></i><i class="atom a"></i><i class="atom b"></i><i class="atom c"></i></div>
+          <div class="molecule three"><i class="bond ab"></i><i class="bond ac"></i><i class="atom a"></i><i class="atom b"></i><i class="atom c"></i></div>
+        </div>
+        <div class="panel-stats">
+          <div class="panel-stat"><b>6</b><span>procedure checkpoints from assessment to closeout</span></div>
+          <div class="panel-stat"><b>360°</b><span>view of curb appeal, safety concerns, and exterior condition</span></div>
+        </div>
+      </aside>
+    </header>
+
+    <main>
+      <section class="section-card" id="clients">
+        <p class="section-kicker">Who we serve</p>
+        <h2 class="section-title">Built for properties that cannot afford vendor inconsistency.</h2>
+        <p class="section-intro">Like professional healthcare logistics providers emphasize reliability, documentation, and qualified handling, Air Tech Solutions is structured for commercial property operations where timing, communication, and risk awareness matter.</p>
+        <div class="audience-grid">
+          <article class="audience-card"><span class="card-icon">01</span><h3>Property managers</h3><p>Maintain curb appeal, reduce resident complaints, and keep recurring exterior maintenance from becoming a reactive emergency.</p></article>
+          <article class="audience-card"><span class="card-icon">02</span><h3>HOA and condo boards</h3><p>Protect shared assets with professional cleaning plans, clear communication, and documentation your board can review.</p></article>
+          <article class="audience-card"><span class="card-icon">03</span><h3>Hotels and hospitality</h3><p>Support brand standards with clean entrances, walkways, windows, pool decks, canopies, and guest-facing exterior surfaces.</p></article>
+          <article class="audience-card"><span class="card-icon">04</span><h3>Industrial facilities</h3><p>Address building grime, loading areas, employee walkways, venting concerns, and exterior condition issues with safety-aware scheduling.</p></article>
+          <article class="audience-card"><span class="card-icon">05</span><h3>Office parks</h3><p>Keep tenant-facing properties sharp with window cleaning, facade washing, surface cleaning, and preventative seasonal service.</p></article>
+          <article class="audience-card"><span class="card-icon">06</span><h3>Luxury residential</h3><p>Deliver detail-focused soft washing, roof care, solar panel cleaning, and property-safe procedures for high-value homes.</p></article>
+        </div>
+      </section>
+
+      <section class="section-card" id="services">
+        <p class="section-kicker">What we do</p>
+        <h2 class="section-title">Exterior cleaning and inspection services with a commercial operations mindset.</h2>
+        <p class="section-intro">Every service is framed around surface protection, property appearance, scheduling flexibility, and clear outcomes for the people responsible for the building.</p>
+        <div class="service-grid">
+          <article class="service-card"><span class="card-icon">SW</span><h3>Drone-assisted soft washing</h3><p>Low-pressure cleaning for organic buildup on building exteriors, roofs, and hard-to-access areas when conditions allow.</p></article>
+          <article class="service-card"><span class="card-icon">LB</span><h3>Lucid Bot cleaning</h3><p>Modern equipment workflows designed to improve reach, reduce disruption, and help crews work more efficiently on commercial sites.</p></article>
+          <article class="service-card"><span class="card-icon">WC</span><h3>Commercial window cleaning</h3><p>Clean glass, frames, and high-visibility areas that influence tenant, guest, and customer perception before they enter.</p></article>
+          <article class="service-card"><span class="card-icon">SC</span><h3>Surface and sidewalk cleaning</h3><p>Remove grime, algae, salt residue, and seasonal staining from walkways, pool decks, entrances, and common areas.</p></article>
+          <article class="service-card"><span class="card-icon">RI</span><h3>Roof and drone inspections</h3><p>Visual documentation helps teams identify staining, access issues, drainage concerns, and maintenance priorities.</p></article>
+          <article class="service-card"><span class="card-icon">PV</span><h3>Solar, vent, and specialty cleaning</h3><p>Support performance and cleanliness for solar panels, dryer vents, HVAC exhaust areas, and other exterior maintenance needs.</p></article>
+        </div>
+      </section>
+
+      <section class="section-card" id="procedures">
+        <p class="section-kicker">Interactive procedure guide</p>
+        <h2 class="section-title">Learn the cleaning process before we arrive.</h2>
+        <p class="section-intro">Select each checkpoint to see how the Cleaning Geniuses approach professional exterior cleaning from inspection through closeout.</p>
+        <div class="procedure-layout">
+          <div class="procedure-tabs" role="tablist" aria-label="Cleaning procedure steps">
+            <button class="procedure-tab active" type="button" role="tab" aria-selected="true" data-step="assessment">Site assessment <span>01</span></button>
+            <button class="procedure-tab" type="button" role="tab" aria-selected="false" data-step="protection">Property protection <span>02</span></button>
+            <button class="procedure-tab" type="button" role="tab" aria-selected="false" data-step="application">Solution application <span>03</span></button>
+            <button class="procedure-tab" type="button" role="tab" aria-selected="false" data-step="dwell">Dwell and release <span>04</span></button>
+            <button class="procedure-tab" type="button" role="tab" aria-selected="false" data-step="rinse">Controlled rinse <span>05</span></button>
+            <button class="procedure-tab" type="button" role="tab" aria-selected="false" data-step="closeout">Documentation <span>06</span></button>
+          </div>
+          <article class="procedure-detail" aria-live="polite">
+            <div class="mini-molecule molecule"><i class="bond ab"></i><i class="bond ac"></i><i class="atom a"></i><i class="atom b"></i><i class="atom c"></i></div>
+            <h3 id="procedure-title">Site assessment and cleaning plan</h3>
+            <p id="procedure-copy">We review surfaces, access points, organic buildup, staining, water availability, drainage, pedestrian traffic, and operational constraints before recommending a cleaning method.</p>
+            <ul id="procedure-list">
+              <li>Identify sensitive surfaces, landscaping, entrances, and tenant-facing areas.</li>
+              <li>Match soft washing, surface cleaning, drone support, or manual detailing to the site.</li>
+              <li>Confirm scheduling windows that limit disruption to residents, guests, or staff.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-card" id="chemistry">
+        <p class="section-kicker">Cleaning science</p>
+        <h2 class="section-title">Why chemistry matters as much as pressure.</h2>
+        <p class="section-intro">Exterior staining is often biological, mineral, or pollution-based. High pressure alone can damage surfaces or push water where it should not go. Our process uses controlled chemistry, dwell time, agitation when needed, and responsible rinsing to support a better clean.</p>
+        <div class="proof-grid">
+          <article class="proof-card"><span class="card-icon">pH</span><h3>Solution selection</h3><p>Cleaning products are chosen for the surface and contaminant type, not applied as a one-size-fits-all treatment.</p></article>
+          <article class="proof-card"><span class="card-icon">H₂O</span><h3>Water control</h3><p>Crews plan rinse direction, runoff awareness, and surrounding area protection before application begins.</p></article>
+          <article class="proof-card"><span class="card-icon">O₂</span><h3>Organic release</h3><p>Algae, mold, mildew, and biofilm are treated with dwell time so buildup releases with less mechanical force.</p></article>
+        </div>
+      </section>
+
+      <section class="section-card" id="maintenance">
+        <p class="section-kicker">Plan builder</p>
+        <h2 class="section-title">Find a smarter maintenance cadence.</h2>
+        <p class="section-intro">Choose a property type and concern to preview a maintenance direction. A real proposal should follow a site assessment, but this tool helps your team think preventatively.</p>
+        <div class="maintenance-builder">
+          <div class="selector-panel">
+            <label for="propertyType">Property type</label>
+            <select id="propertyType">
+              <option value="multifamily">Multifamily or apartment community</option>
+              <option value="hospitality">Hotel or hospitality property</option>
+              <option value="industrial">Industrial or warehouse facility</option>
+              <option value="office">Office park or commercial building</option>
+            </select>
+            <label for="maintenanceNeed">Primary concern</label>
+            <select id="maintenanceNeed">
+              <option value="curb">Curb appeal and visible staining</option>
+              <option value="safety">Sidewalk algae or slip-hazard awareness</option>
+              <option value="windows">Windows and high-visibility glass</option>
+              <option value="roof">Roof staining or inspection needs</option>
+            </select>
+            <button class="btn btn-primary" type="button" id="buildPlan">Build recommendation</button>
+          </div>
+          <article class="recommendation" id="recommendation" aria-live="polite">
+            <span class="label">Recommended direction</span>
+            <h3>Start with a documented exterior assessment.</h3>
+            <p>We will prioritize the areas with the highest visual, safety, and maintenance impact, then recommend a soft washing, surface cleaning, window, or inspection cadence that fits your operating schedule.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="quote-panel" id="quote">
+        <div>
+          <p class="section-kicker">Get a quote</p>
+          <h2>Put the Cleaning Geniuses on your maintenance calendar.</h2>
+          <p>Tell us about your property, service needs, and timing. Air Tech Solutions can review the request, recommend next steps, and prepare for a professional site assessment.</p>
+          <div class="hero-actions">
+            <a class="btn btn-secondary" href="#maintenance">Build a plan first</a>
+            <a class="btn btn-secondary" href="mailto:info@airtechsolutions.com">Email the team</a>
+          </div>
+        </div>
+        <form class="quote-form" id="quoteForm">
+          <input type="text" name="name" placeholder="Name" aria-label="Name" required />
+          <input type="email" name="email" placeholder="Email" aria-label="Email" required />
+          <input type="text" name="property" placeholder="Property / company" aria-label="Property or company" />
+          <textarea name="message" placeholder="What needs to be cleaned?" aria-label="Message"></textarea>
+          <button class="btn btn-primary" type="submit">Prepare inquiry</button>
+          <p class="form-note">This opens your email app with a prepared request. No form data is stored on this page.</p>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status">Recommendation updated.</div>
+
+  <script>
+    const procedureData = {
+      assessment: {
+        title: 'Site assessment and cleaning plan',
+        copy: 'We review surfaces, access points, organic buildup, staining, water availability, drainage, pedestrian traffic, and operational constraints before recommending a cleaning method.',
+        bullets: [
+          'Identify sensitive surfaces, landscaping, entrances, and tenant-facing areas.',
+          'Match soft washing, surface cleaning, drone support, or manual detailing to the site.',
+          'Confirm scheduling windows that limit disruption to residents, guests, or staff.'
+        ]
+      },
+      protection: {
+        title: 'Property protection and site setup',
+        copy: 'Before chemistry touches the surface, crews prepare the work area so surrounding materials, people, and operations are accounted for.',
+        bullets: [
+          'Pre-wet or cover sensitive plants and nearby finishes when appropriate.',
+          'Plan hose routing, pedestrian control, and equipment staging.',
+          'Confirm runoff direction and protect high-traffic access points.'
+        ]
+      },
+      application: {
+        title: 'Measured solution application',
+        copy: 'Cleaning solutions are applied with the right delivery method for the material, height, soil level, and safety conditions.',
+        bullets: [
+          'Use low-pressure soft washing for delicate or organic-stained surfaces.',
+          'Use surface equipment for concrete, walkways, and durable hardscapes.',
+          'Use drone-assisted or extended-reach methods when access creates unnecessary risk.'
+        ]
+      },
+      dwell: {
+        title: 'Dwell time and contaminant release',
+        copy: 'The cleaning solution needs time to break down organic growth and release buildup. This reduces reliance on excessive pressure.',
+        bullets: [
+          'Monitor dwell time based on weather, surface temperature, and staining.',
+          'Agitate detail areas when needed for better release.',
+          'Avoid rushing the chemistry phase on heavy organic buildup.'
+        ]
+      },
+      rinse: {
+        title: 'Controlled rinse and finish pass',
+        copy: 'Crews rinse methodically, working from clean zones to final drainage points while checking for streaking, residue, and missed details.',
+        bullets: [
+          'Use appropriate pressure for the surface being cleaned.',
+          'Check windows, trim, signage, and corners before leaving a section.',
+          'Maintain awareness of active tenants, guests, vehicles, and entrances.'
+        ]
+      },
+      closeout: {
+        title: 'Closeout documentation',
+        copy: 'The job is not complete until the property contact can see what was performed and where attention may be needed next.',
+        bullets: [
+          'Capture before-and-after photos for maintenance records.',
+          'Note access issues, staining that may need follow-up, and preventative recommendations.',
+          'Provide a practical cadence for recurring exterior maintenance.'
+        ]
+      }
+    };
+
+    const recommendationData = {
+      multifamily: {
+        curb: ['Quarterly curb-appeal route', 'Prioritize leasing office entries, monument signage, breezeways, pool decks, sidewalks, and building elevations with visible organic staining.'],
+        safety: ['Sidewalk and common-area cleaning route', 'Focus on shaded walkways, stairs, trash areas, pool decks, and resident paths where algae and grime can create complaints or slip-hazard concerns.'],
+        windows: ['Seasonal glass and facade program', 'Pair exterior window cleaning with entry washing and high-touch facade areas before peak leasing periods.'],
+        roof: ['Roof soft wash and drone inspection review', 'Use visual documentation to identify staining, drainage concerns, and access constraints before planning a roof-safe cleaning process.']
+      },
+      hospitality: {
+        curb: ['Guest-arrival presentation program', 'Clean porte-cocheres, entrances, sidewalks, pool decks, exterior dining areas, and building elevations that influence first impressions.'],
+        safety: ['High-traffic surface maintenance', 'Schedule low-disruption cleaning around arrival windows and focus on wet-prone walkways, pool areas, and service entries.'],
+        windows: ['Brand-standard glass maintenance', 'Create a recurring window and entrance detail cadence for lobby glass, restaurant areas, and guest-facing elevations.'],
+        roof: ['Inspection-first roof care', 'Document roof staining and drainage before recommending soft washing, spot treatment, or maintenance sequencing.']
+      },
+      industrial: {
+        curb: ['Facility exterior reset', 'Prioritize offices, loading areas, employee walkways, signage, and high-visibility walls impacted by pollution, dust, and runoff.'],
+        safety: ['Walkway and loading-zone cleaning', 'Focus on employee paths, dock approaches, and exterior concrete where grime and algae affect safety awareness and appearance.'],
+        windows: ['Office-front glass program', 'Keep administrative entrances, customer-facing offices, and security areas cleaner without disrupting facility operations.'],
+        roof: ['Drone-assisted condition documentation', 'Use aerial visuals to review roof staining, vents, drainage, and access points before planning cleaning or maintenance.']
+      },
+      office: {
+        curb: ['Tenant-facing curb appeal program', 'Target building entrances, sidewalks, facade staining, common seating areas, and monument signs for a cleaner tenant experience.'],
+        safety: ['Pedestrian-area maintenance cadence', 'Build a plan for shaded sidewalks, parking-lot paths, entry mats, and exterior surfaces with repeat moisture exposure.'],
+        windows: ['Recurring commercial window route', 'Pair scheduled window cleaning with entrance detailing and exterior spot washing for high-visibility areas.'],
+        roof: ['Inspection and preventative cleaning plan', 'Review roof condition, drainage, and organic staining so ownership can plan maintenance with documentation.']
+      }
+    };
+
+    const tabs = document.querySelectorAll('.procedure-tab');
+    const title = document.getElementById('procedure-title');
+    const copy = document.getElementById('procedure-copy');
+    const list = document.getElementById('procedure-list');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const data = procedureData[tab.dataset.step];
+        tabs.forEach((item) => {
+          item.classList.remove('active');
+          item.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        title.textContent = data.title;
+        copy.textContent = data.copy;
+        list.innerHTML = data.bullets.map((bullet) => `<li>${bullet}</li>`).join('');
+      });
+    });
+
+    const toast = document.getElementById('toast');
+    const showToast = (message) => {
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    };
+
+    document.getElementById('buildPlan').addEventListener('click', () => {
+      const propertyType = document.getElementById('propertyType').value;
+      const maintenanceNeed = document.getElementById('maintenanceNeed').value;
+      const [headline, description] = recommendationData[propertyType][maintenanceNeed];
+      document.getElementById('recommendation').innerHTML = `
+        <span class="label">Recommended direction</span>
+        <h3>${headline}</h3>
+        <p>${description}</p>
+      `;
+      showToast('Maintenance recommendation updated.');
+    });
+
+    document.getElementById('quoteForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const form = new FormData(event.currentTarget);
+      const subject = encodeURIComponent('Air Tech Solutions property assessment request');
+      const body = encodeURIComponent(`Name: ${form.get('name') || ''}\nEmail: ${form.get('email') || ''}\nProperty / Company: ${form.get('property') || ''}\n\nCleaning need:\n${form.get('message') || ''}`);
+      window.location.href = `mailto:info@airtechsolutions.com?subject=${subject}&body=${body}`;
+      showToast('Opening your email app with the request.');
+    });
+  </script>
+</body>
+</html>
