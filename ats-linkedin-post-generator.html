@@ -681,7 +681,7 @@
   </main>
 
   <script>
-    const WEBHOOK_URL = "https://airtechmass.app.n8n.cloud/webhook-test/ats-linkedin-email-generator";
+    const WEBHOOK_URL = "https://airtechmass.app.n8n.cloud/webhook/ats-linkedin-post-generator";
 
     const emailForm = document.getElementById("emailForm");
     const generateBtn = document.getElementById("generateBtn");
@@ -851,7 +851,7 @@
       } catch (error) {
         result.value = "";
         updateCharacterCounter();
-        setStatus("Generation failed. Confirm the n8n test webhook is listening, then try again.", "error");
+        setStatus("Generation failed. Confirm the n8n production webhook is active, then try again.", "error");
       } finally {
         setLoading(false);
       }
