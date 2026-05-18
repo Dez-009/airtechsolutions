@@ -314,6 +314,19 @@ Broad Brook, CT 06016</textarea>
       <label>Client Email</label>
       <input id="clientEmail" value="mhowlader@winnco.com">
 
+      <div class="section-title">Executive Summary / Company Overview</div>
+      <label>Executive Summary</label>
+      <textarea id="executiveSummary">Air Tech Solutions appreciates the opportunity to submit this proposal for exterior building washing services at Millpond Village.
+Our team specializes in professional exterior cleaning and preventative property maintenance services for multifamily, commercial, hospitality, and residential properties throughout the Northeast.
+We understand the operational requirements associated with occupied residential communities, including resident safety, property protection, scheduling coordination, and minimizing disruption during active work operations.
+Air Tech Solutions is committed to delivering professional project execution, organized job-site operations, and high-quality exterior cleaning services in accordance with the requirements outlined within the request for proposal.</textarea>
+      <p class="small-note">Edit this section for each proposal. It appears near the beginning of the generated document.</p>
+
+      <label>Company Overview</label>
+      <textarea id="companyOverview">Air Tech Solutions is a professional exterior cleaning and property maintenance company serving multifamily, commercial, hospitality, industrial, and residential properties.
+We focus on safe, reliable, and professional operations designed to improve curb appeal, maintain property standards, and protect building assets.</textarea>
+      <p class="small-note">Use this field to tailor Air Tech's company overview for the client or property type.</p>
+
       <div class="section-title">Air Tech / Signer</div>
       <label>Authorized Representative</label>
       <input id="repName" value="Chase Thompson">
@@ -400,6 +413,17 @@ Optional surface cleaning for sidewalks/common areas: $[INSERT AMOUNT]</textarea
       <div id="photoAdmin" class="photo-admin-grid"></div>
       <button class="secondary" type="button" onclick="clearPhotos()" style="width:100%;margin-top:10px;">Clear Uploaded Photos</button>
 
+      <div class="section-title">Optional Areas of Concern</div>
+      <label>Upload Optional Area Images</label>
+      <input id="optionalConcernUpload" type="file" accept="image/*" multiple>
+      <p class="small-note">Upload images for areas that are not covered by the defined scope of work. These appear in a separate optional section.</p>
+
+      <label>Optional Areas Intro</label>
+      <textarea id="optionalConcernIntro">The following images identify optional areas of concern that are not included in the defined scope of work unless specifically approved in writing as an add-on or change order.</textarea>
+
+      <div id="optionalConcernAdmin" class="photo-admin-grid"></div>
+      <button class="secondary" type="button" onclick="clearOptionalConcernPhotos()" style="width:100%;margin-top:10px;">Clear Optional Area Images</button>
+
       <div class="section-title">Exclusions</div>
       <label>Excluded Items</label>
       <textarea id="exclusions">Window cleaning is excluded. Windows will be rinsed of debris during soft washing operations but are not included as a detailed window cleaning service.
@@ -448,12 +472,14 @@ Email: mela@gardencommunitiesma.com</textarea>
   <script>
     var fieldIds = [
       'proposalTitle','clientName','propertyAddress','clientContact','clientTitle','clientEmail',
-      'repName','repTitle','repEmail','repPhone','includedScope','scopeNotes','methodology',
-      'technicalProcedures','differentiators','startDate','timeline','price','quoteBreakdown','optionalAddOns','pricingNotes','photoIntro','exclusions','ref1','ref2'
+      'executiveSummary','companyOverview','repName','repTitle','repEmail','repPhone','includedScope','scopeNotes','methodology',
+      'technicalProcedures','differentiators','startDate','timeline','price','quoteBreakdown','optionalAddOns','pricingNotes','photoIntro','optionalConcernIntro','exclusions','ref1','ref2'
     ];
 
     var uploadedPhotos = [];
+    var optionalConcernPhotos = [];
     var maxPhotos = 20;
+    var maxOptionalConcernPhotos = 20;
 
     function getValue(id) {
       var el = document.getElementById(id);
@@ -502,14 +528,10 @@ Email: mela@gardencommunitiesma.com</textarea>
       html += '</div>';
 
       html += '<h2>Executive Summary</h2>';
-      html += '<p>Air Tech Solutions appreciates the opportunity to submit this proposal for exterior building washing services at ' + escapeHtml(getValue('clientName')) + '.</p>';
-      html += '<p>Our team specializes in professional exterior cleaning and preventative property maintenance services for multifamily, commercial, hospitality, and residential properties throughout the Northeast.</p>';
-      html += '<p>We understand the operational requirements associated with occupied residential communities, including resident safety, property protection, scheduling coordination, and minimizing disruption during active work operations.</p>';
-      html += '<p>Air Tech Solutions is committed to delivering professional project execution, organized job-site operations, and high-quality exterior cleaning services in accordance with the requirements outlined within the request for proposal.</p>';
+      html += '<p>' + nl2br(getValue('executiveSummary')) + '</p>';
 
       html += '<h2>Company Overview</h2>';
-      html += '<p>Air Tech Solutions is a professional exterior cleaning and property maintenance company serving multifamily, commercial, hospitality, industrial, and residential properties.</p>';
-      html += '<p>We focus on safe, reliable, and professional operations designed to improve curb appeal, maintain property standards, and protect building assets.</p>';
+      html += '<p>' + nl2br(getValue('companyOverview')) + '</p>';
 
       html += '<h2>Scope of Work</h2>';
       html += '<p>Air Tech Solutions will provide all labor, equipment, materials, supervision, cleaning solutions, and operational support necessary to complete the exterior washing services outlined in the RFP.</p>';
@@ -535,6 +557,16 @@ Email: mela@gardencommunitiesma.com</textarea>
         html += '<div class="photo-grid">';
         for (var p = 0; p < uploadedPhotos.length; p++) {
           html += '<div class="photo-card"><img src="' + uploadedPhotos[p].src + '" alt="Area of concern photo ' + (p + 1) + '"><p><strong>Photo ' + (p + 1) + ':</strong> ' + escapeHtml(uploadedPhotos[p].caption || 'Area of concern') + '</p></div>';
+        }
+        html += '</div>';
+      }
+
+      if (optionalConcernPhotos.length > 0) {
+        html += '<h2>Optional Areas of Concern</h2>';
+        html += '<p>' + nl2br(getValue('optionalConcernIntro')) + '</p>';
+        html += '<div class="photo-grid">';
+        for (var o = 0; o < optionalConcernPhotos.length; o++) {
+          html += '<div class="photo-card"><img src="' + optionalConcernPhotos[o].src + '" alt="Optional area of concern photo ' + (o + 1) + '"><p><strong>Optional Area ' + (o + 1) + ':</strong> ' + escapeHtml(optionalConcernPhotos[o].caption || 'Not included in scope of work') + '</p></div>';
         }
         html += '</div>';
       }
@@ -649,6 +681,84 @@ Email: mela@gardencommunitiesma.com</textarea>
       saveState();
     }
 
+    function renderOptionalConcernAdmin() {
+      var container = document.getElementById('optionalConcernAdmin');
+      if (!container) return;
+      var html = '';
+      for (var i = 0; i < optionalConcernPhotos.length; i++) {
+        html += '<div class="photo-admin-card">';
+        html += '<img src="' + optionalConcernPhotos[i].src + '" alt="Optional area image ' + (i + 1) + '">';
+        html += '<label>Caption for Optional Area ' + (i + 1) + '</label>';
+        html += '<textarea data-optional-concern-caption="' + i + '">' + escapeHtml(optionalConcernPhotos[i].caption || '') + '</textarea>';
+        html += '<button class="danger" type="button" onclick="removeOptionalConcernPhoto(' + i + ')" style="width:100%;margin-top:8px;">Remove Optional Area</button>';
+        html += '</div>';
+      }
+      container.innerHTML = html;
+
+      var captions = container.querySelectorAll('[data-optional-concern-caption]');
+      for (var c = 0; c < captions.length; c++) {
+        captions[c].addEventListener('input', function(e) {
+          var index = parseInt(e.target.getAttribute('data-optional-concern-caption'), 10);
+          if (!isNaN(index) && optionalConcernPhotos[index]) {
+            optionalConcernPhotos[index].caption = e.target.value;
+            updateProposal();
+          }
+        });
+      }
+    }
+
+    function handleOptionalConcernUpload(event) {
+      var files = Array.prototype.slice.call(event.target.files || []);
+      if (!files.length) return;
+
+      var remaining = maxOptionalConcernPhotos - optionalConcernPhotos.length;
+      if (remaining <= 0) {
+        alert('Maximum of 20 optional area images reached. Remove images before adding more.');
+        event.target.value = '';
+        return;
+      }
+
+      if (files.length > remaining) {
+        alert('Only ' + remaining + ' more optional area image(s) can be added. Maximum is 20.');
+        files = files.slice(0, remaining);
+      }
+
+      var loaded = 0;
+      for (var i = 0; i < files.length; i++) {
+        if (!files[i].type.match('image.*')) {
+          loaded++;
+          continue;
+        }
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          optionalConcernPhotos.push({ src: e.target.result, caption: 'Not included in scope of work' });
+          loaded++;
+          if (loaded >= files.length) {
+            renderOptionalConcernAdmin();
+            updateProposal();
+            saveState();
+          }
+        };
+        reader.readAsDataURL(files[i]);
+      }
+      event.target.value = '';
+    }
+
+    function removeOptionalConcernPhoto(index) {
+      optionalConcernPhotos.splice(index, 1);
+      renderOptionalConcernAdmin();
+      updateProposal();
+      saveState();
+    }
+
+    function clearOptionalConcernPhotos() {
+      if (!confirm('Remove all optional area images from this proposal?')) return;
+      optionalConcernPhotos = [];
+      renderOptionalConcernAdmin();
+      updateProposal();
+      saveState();
+    }
+
     function downloadPDF() {
       updateProposal();
 
@@ -714,6 +824,7 @@ Email: mela@gardencommunitiesma.com</textarea>
         var data = {};
         for (var i = 0; i < fieldIds.length; i++) data[fieldIds[i]] = getValue(fieldIds[i]);
         data.uploadedPhotos = uploadedPhotos;
+        data.optionalConcernPhotos = optionalConcernPhotos;
         localStorage.setItem('airtechProposalGeneratorV3', JSON.stringify(data));
       } catch (e) {}
     }
@@ -728,6 +839,7 @@ Email: mela@gardencommunitiesma.com</textarea>
           if (el && data[fieldIds[i]] !== undefined) el.value = data[fieldIds[i]];
         }
         if (Array.isArray(data.uploadedPhotos)) uploadedPhotos = data.uploadedPhotos.slice(0, maxPhotos);
+        if (Array.isArray(data.optionalConcernPhotos)) optionalConcernPhotos = data.optionalConcernPhotos.slice(0, maxOptionalConcernPhotos);
       } catch (e) {}
     }
 
@@ -744,12 +856,15 @@ Email: mela@gardencommunitiesma.com</textarea>
       }
       var photoUpload = document.getElementById('photoUpload');
       if (photoUpload) photoUpload.addEventListener('change', handlePhotoUpload);
+      var optionalConcernUpload = document.getElementById('optionalConcernUpload');
+      if (optionalConcernUpload) optionalConcernUpload.addEventListener('change', handleOptionalConcernUpload);
     }
 
     document.addEventListener('DOMContentLoaded', function() {
       loadState();
       attachEvents();
       renderPhotoAdmin();
+      renderOptionalConcernAdmin();
       updateProposal();
     });
   </script>
